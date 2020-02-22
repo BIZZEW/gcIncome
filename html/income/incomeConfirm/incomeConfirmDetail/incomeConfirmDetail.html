@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../../../css/iuapmobile.um.css">
+    <link rel="stylesheet" href="../../../../css/mintui.css" />
+    <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1097062_awi50q08wat.css">
+    <link type="text/css" rel="stylesheet" href="../../../util/iconfont.css">
+    <link rel="stylesheet" href="../../../util/util.css">
+    <link rel="stylesheet" href="incomeConfirmDetail.css">
+
+    <script type="text/javascript" src="../../../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../../js/summer.js"></script>
+    <script type="text/javascript" src="../../../../js/Frameworks/iuapmobile.frameworks.ui.js"></script>
+    <script type="text/javascript" src="../../../../node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript" src="../../../../js/mintui.js"></script>
+    <script type="text/javascript" src="../../../util/util.js"></script>
+    <script type="text/javascript" src="../../../../js/her.min.js"></script>
+    <script type="text/javascript" src="incomeConfirmDetail.js"></script>
+</head>
+
+<body>
+    <div class="loadingLayer"></div>
+    <div class="um-win" id="index" :class=module_id>
+        <div class="um-header header-bg">
+            <a href="#" class="um-back" @click="goback"></a>
+            <h3 class="title-color">详&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;情</h3>
+            <div class="um-header-btns"></div>
+        </div>
+
+        <div class="um-content">
+            <div class="ultra-item">
+                <label class="ultra-label">日期</label>
+                <div class="ultra-content"><input placeholder="日期" type="text" v-model="infodate" readonly></div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">结算方式</label>
+                <div class="ultra-content"><input placeholder="结算方式" type="text" v-model="paymethod" readonly></div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">客户</label>
+                <div class="ultra-content"><input placeholder="客户" type="text" v-model="oppunitname" readonly></div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">订单客户</label>
+                <div class="ultra-content"><input placeholder="订单客户" type="text" v-model="grossWeight" readonly></div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">票据号/付款银行账号</label>
+                <div class="ultra-content"><input placeholder="票据号/付款银行账号" type="number" v-model="deduction" readonly>
+                </div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">收款银行账号</label>
+                <div class="ultra-content"><input placeholder="收款银行账号" type="number" v-model="supplierNetWeight" readonly>
+                </div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">金额</label>
+                <div class="ultra-content"><input placeholder="金额" type="text" v-model="releasemoney" readonly>
+                </div>
+            </div>
+
+            <div class="ultra-item" style="margin-bottom: 100px">
+                <label class="ultra-label">收支项目</label>
+                <div class="ultra-content"><input placeholder="收支项目" type="text" v-model="refundStatus" readonly>
+                </div>
+            </div>
+
+            <div class="ultra-bottom-btns" v-if="!inputStatus">
+                <div class="ultra-bottom-btn" @click="submitForm()" style="width: 100%;">
+                    <div class="icon iconfont icon-submit"></div>
+                    <div style="margin-left: 5px;">提&nbsp;&nbsp;&nbsp;&nbsp;交</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

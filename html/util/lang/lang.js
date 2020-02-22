@@ -1,4 +1,4 @@
-window.lang = (function (win, l) {
+window.lang = (function(win, l) {
     l.langStr = [{
         /*login*/
         "redLionSaleMS": "Sales Management System of REDLION CEMENT CO",
@@ -355,6 +355,16 @@ window.lang = (function (win, l) {
                 "module_id": "receiveQuery",
             }]
         },
+        "income": {
+            "showName": "金圆收款管理系统",
+            "moduleList": [{
+                "module_title": "收款单维护",
+                "module_id": "incomeConfirm",
+            }, {
+                "module_title": "收款单列表",
+                "module_id": "incomeQuery",
+            }]
+        },
         "exitApp": "退出系统",
         "settings": "系统设置",
         /*settings*/
@@ -591,15 +601,15 @@ window.lang = (function (win, l) {
         "confirmText": "确认生成？",
     }];
 
-    l.getStr = function (langCode, strTag) {
+    l.getStr = function(langCode, strTag) {
         return l.langStr[langCode][strTag];
     };
 
-    l.getStrBilayer = function (langCode, strTag, secondStrTag) {
+    l.getStrBilayer = function(langCode, strTag, secondStrTag) {
         return l.langStr[langCode][strTag][secondStrTag];
     };
 
-    l.getStrTritlayer = function (langCode, strTag, secondStrTag, thirdStrTag) {
+    l.getStrTritlayer = function(langCode, strTag, secondStrTag, thirdStrTag) {
         return l.langStr[langCode][strTag][secondStrTag][thirdStrTag];
     };
 

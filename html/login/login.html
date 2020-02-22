@@ -40,13 +40,12 @@
                 </div> -->
                 <div class="login-form">
                     <!-- <div class="panel-title" v-text="langFunk('redLionSaleMS')"></div> -->
-                    <div class="panel-title">收货管理系统</div>
+                    <div class="panel-title">到账通知管理</div>
 
                     <div class="um-label um-box-justify">
                         <div class="label-title" v-text="langFunk('usernameLabel')" @click="secretDoor2(3)"></div>
                         <div class="label-content">
-                            <input id="usrname" type="text" v-model="usrname" placeholder="" disabled=""
-                                @click="selectUsrname()" />
+                            <input id="usrname" type="text" v-model="usrname" placeholder="" disabled="" @click="selectUsrname()" />
 
                             <div class="pen-outer">
                                 <div class="pulldown">
@@ -55,8 +54,7 @@
                                     </div>
                                     <div class="pulldown-menu">
                                         <div class="userList">
-                                            <div class="user-item ultra-list-item" @click="userItemClick(index)"
-                                                v-for="(item, index) in userList">
+                                            <div class="user-item ultra-list-item" @click="userItemClick(index)" v-for="(item, index) in userList">
                                                 <div class="user-item-inner" v-text="item.username"></div>
                                             </div>
                                         </div>
@@ -69,10 +67,8 @@
                     <div class="um-label um-box-justify">
                         <div class="label-title" v-text="langFunk('passwordLabel')"></div>
                         <div class="label-content">
-                            <input id="password" :type="showPD ? 'text' : 'password'" v-model="password"
-                                placeholder=" " />
-                            <div :class=" 'icon iconfont icon-' + ((showPD) ? 'eye' : 'closeye') "
-                                @touchstart="showPD= true" @touchend="showPD= false" @touchmove="showPD= false"></div>
+                            <input id="password" :type="showPD ? 'text' : 'password'" v-model="password" placeholder=" " />
+                            <div :class=" 'icon iconfont icon-' + ((showPD) ? 'eye' : 'closeye') " @touchstart="showPD= true" @touchend="showPD= false" @touchmove="showPD= false"></div>
                         </div>
                     </div>
 
@@ -81,8 +77,7 @@
                             请求地址
                         </div>
                         <div class="label-content">
-                            <input id="loginip" type="text" v-model="loginIP" placeholder="请在此输入请求地址"
-                                style="width:100%; font-size: 16px; margin-left: 0px;" />
+                            <input id="loginip" type="text" v-model="loginIP" placeholder="请在此输入请求地址" style="width:100%; font-size: 16px; margin-left: 0px;" />
                         </div>
                     </div>
 

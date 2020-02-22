@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../../../css/iuapmobile.um.css">
+    <link rel="stylesheet" href="../../../../css/mintui.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1097062_q9eq44e61yl.css"> -->
+    <link type="text/css" rel="stylesheet" href="../../../util/iconfont.css">
+    <link rel="stylesheet" href="../../../util/util.css">
+    <link rel="stylesheet" href="incomeQueryDetail.css">
+
+    <script type="text/javascript" src="../../../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../../js/summer.js"></script>
+    <script type="text/javascript" src="../../../../js/Frameworks/iuapmobile.frameworks.ui.js"></script>
+    <script type="text/javascript" src="../../../../node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript" src="../../../../js/mintui.js"></script>
+    <script type="text/javascript" src="../../../util/util.js"></script>
+    <script type="text/javascript" src="../../../../js/her.min.js"></script>
+    <script type="text/javascript" src="incomeQueryDetail.js"></script>
+</head>
+
+<body>
+    <div class="loadingLayer"></div>
+    <div class="um-win" id="index" :class=module_id>
+        <div class="um-header header-bg">
+            <a href="#" class="um-back" @click="goback"></a>
+            <h3 class="title-color">详&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;情</h3>
+            <div class="um-header-btns"></div>
+        </div>
+
+        <div class="um-content">
+            <div class="ultra-item">
+                <label class="ultra-label">单据号</label>
+                <div class="ultra-content"><input placeholder="单据号" type="text" v-model="plateNum" readonly></div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">日期</label>
+                <div class="ultra-content"><input placeholder="日期" type="text" v-model="supplierName" readonly></div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">客户</label>
+                <div class="ultra-content"><input placeholder="客户" type="text" v-model="materialName" readonly></div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">订单客户</label>
+                <div class="ultra-content"><input placeholder="订单客户" type="text" v-model="grossWeight" readonly></div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">金额</label>
+                <div class="ultra-content"><input placeholder="金额" type="number" v-model="deduction" readonly></div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">收支项目</label>
+                <div class="ultra-content"><input placeholder="收支项目" type="number" v-model="supplierNetWeight" readonly>
+                </div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">结算方式</label>
+                <div class="ultra-content"><input placeholder="结算方式" type="text" v-model="containerNo" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

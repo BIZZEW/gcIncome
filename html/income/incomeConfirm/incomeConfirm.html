@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../../css/iuapmobile.um.css">
+    <link rel="stylesheet" href="../../../css/mintui.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_1097062_3peymho9zmr.css"> -->
+    <link type="text/css" rel="stylesheet" href="../../util/iconfont.css">
+    <link rel="stylesheet" href="../../util/util.css">
+    <link rel="stylesheet" href="incomeConfirm.css">
+
+    <script type="text/javascript" src="../../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../js/summer.js"></script>
+    <script type="text/javascript" src="../../../js/Frameworks/iuapmobile.frameworks.ui.js"></script>
+    <script type="text/javascript" src="../../../node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript" src="../../../js/vue.js"></script>
+    <script type="text/javascript" src="../../../js/mintui.js"></script>
+    <script type="text/javascript" src="../../util/util.js"></script>
+    <script type="text/javascript" src="../../util/lang/lang.js"></script>
+    <script type="text/javascript" src="../../../js/her.min.js"></script>
+    <script type="text/javascript" src="incomeConfirm.js"></script>
+</head>
+
+<body>
+    <div class="loadingLayer"></div>
+    <div class="um-win" id="index" :class=module_id>
+        <div class="um-header header-bg">
+            <a href="#" class="um-back" @click="goback"></a>
+            <h3 class="title-color" v-text="module_title"></h3>
+        </div>
+
+        <div class="um-content">
+
+            <div class="empty-view" v-if="logList.length==0" style="top:0;height:100%">
+                <div class="icon iconfont icon-kong1"></div>
+            </div>
+
+            <div id="ultra-scroll-list" class="ultra-scroll-list" style="margin: 0;">
+                <div class="ultra-list-item" v-for="(item, index) in logList" @click="goDetail(index)">
+                    <div class="log-item-inner">
+                        <div class="log-item-row">
+                            <div class="log-item-content" v-text='"结算方式:\xa0\xa0"+item.paymethod'></div>
+                        </div>
+                        <div class="log-item-row">
+                            <div class="log-item-content" v-text='"日\xa0\xa0\xa0\xa0\xa0\xa0\xa0期:\xa0\xa0" +item.infodate'>
+                            </div>
+                        </div>
+                        <div class="log-item-row">
+                            <div class="log-item-content" v-text='"客\xa0\xa0\xa0\xa0\xa0\xa0\xa0户:\xa0\xa0" +item.oppunitname'>
+                            </div>
+                        </div>
+                        <div class="log-item-row">
+                            <div class="log-item-content" v-text='"金\xa0\xa0\xa0\xa0\xa0\xa0\xa0额:\xa0\xa0" +item.releasemoney'>
+                            </div>
+                        </div>
+                        <div class="log-item-row">
+                            <div class="log-item-content" v-text='"摘\xa0\xa0\xa0\xa0\xa0\xa0\xa0要:\xa0\xa0" +(item.memo ? item.memo : "")'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-id" v-text="index+1"></div>
+                    <!-- <div class="item-detail-tag">详情</div> -->
+                </div>
+                <div id="spinner" :class="(spinning ? ('spinner spinning') : ('spinner'))" v-if="(logList.length!=0) && endFlag && isLoading" v-text="loadText" @click="loadMore()"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

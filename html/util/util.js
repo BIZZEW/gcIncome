@@ -5,6 +5,7 @@ window.roads = (function (win, r) {
     r.G_BASE_SALE_URL = "html/sale/";
     r.G_BASE_PROCURE_URL = "html/procure/";
     r.G_BASE_RECEIVE_URL = "html/receive/";
+    r.G_BASE_INCOME_URL = "html/income/";
     r.G_BASE_LOGIN_URL = "html/login/";
     r.G_BASE_MENU_URL = "html/menu/";
     r.G_BASE_UTIL_URL = "html/util/";
@@ -55,121 +56,75 @@ window.roads = (function (win, r) {
         });
     };
 
-    r.ajaxKernel = function (url, data, successCallback, functionName) {
-        $.ajax({
+    r.ajaxKernel = function (url, param, type, successCallback, functionName) {
+        window.cordovaHTTP.settings = { timeout: 8000 };
+        summer.ajax({
+            type: type,
             url: url,
-            type: "POST",
-            dataType: "xml",
-            contentType: "text/xml; charset=utf-8",
-            data: data,
-            timeout: 30000,
-            async: true,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("User-Agent", "headertest");
-            },
-            success: function (ret) {
-                her.loadedSpring();
-                summer.refreshHeaderLoadDone();
-                summer.refreshFooterLoadDone();
-                successCallback(ret);
-            },
-            error: function (err) {
-                her.loadedSpring();
-                summer.refreshHeaderLoadDone();
-                summer.refreshFooterLoadDone();
-                r.alertAIO(r.langFunk("netDisconnect"));
-            },
-            complete: function (XMLHttpRequest, status) {
-                if (status == 'timeout') {
-                    r.alertAIO(r.langFunk("timeout"));
-                    //oldSkoolAjax.abort();
-                    r.checkTimeout(functionName);
-                }
+            param: param,
+            header: {
+                "Content-Type": "application/json"
             }
+        }, function (ret) {
+            her.loadedSpring();
+            successCallback(ret);
+        }, function (response) {
+            her.loadedSpring();
+            r.alertAIO(r.langFunk("netDisconnect"));
         });
     };
 
-    r.checkLogin = function (url, data, successCallback) {
+    r.checkLogin = function (url, data, type, successCallback) {
         //提取方法名
         var functionName = url.split('/').pop();
-        //alert("在调用接口 " + functionName + " 之前先检查当前登录状态有效性；当前会话编码：" + summer.getStorage('sessionId'));
         //除去“登录”和“获取用户列表”外的方法都要判断登录状态有效性
-        if (functionName != "login" && functionName != "userList") {
-            var url2 = summer.getStorage('loginIP') + "/uapws/service/nc.itf.app.webservice.IPurchaseAppWebService/checkLoginStatus";
+        if (functionName != "login" && functionName != "userList" && functionName != "userlist" && functionName != "userlogin") {
+            var url2 = summer.getStorage('loginIP') + "/cusapl/checkstatus";
+
             var usrcode = summer.getStorage('usrcode');
             var sessionId = summer.getStorage('sessionId');
             var tmpLang = summer.getStorage('lang');
             var lang = isEmpty(tmpLang) ? "1" : tmpLang;
             var param = {
                 "lang": lang,
-                usercode: usrcode,
+                user_code: usrcode,
                 sessionid: sessionId
             };
-            // alert("checkLogin param: " + JSON.stringify(param));
-            var data2 = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ipur='http://webservice.app.itf.nc/IPurchaseAppWebService'><soapenv:Header/><soapenv:Body><ipur:checkLoginStatus><string>" + JSON.stringify(param) + "</string></ipur:checkLoginStatus></soapenv:Body></soapenv:Envelope>";
-            $.ajax({
-                url: url2,
-                type: "POST",
-                dataType: "xml",
-                contentType: "text/xml; charset=utf-8",
-                data: data2,
-                async: true,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("User-Agent", "headertest");
-                },
-                success: function (ret) {
-                    var result = JSON.parse($(ret).find("return").html());
-                    // alert("checkLogin result: " + (parseInt(result.status) > 0));
-                    if (parseInt(result.status) > 0)
-                        r.ajaxKernel(url, data, successCallback, functionName);
-                    else {
-                        her.loadedSpring();
-                        summer.setStorage('loginStatus', 0);
-                        summer.refreshHeaderLoadDone();
-                        summer.refreshFooterLoadDone();
-                        // summer.toast({
-                        // 	"msg": "抱歉，登录失效"
-                        // });
-                        r.alertAIO(r.langFunk("invalidLogin"));
-                        r.openWinSpecial("login", "login", "login.html", {});
-                    }
-                },
-                error: function (err) {
+
+            window.cordovaHTTP.settings = { timeout: 8000 }; //设置5秒超时
+            summer.post(url2, param, {
+                // Authorization: "OAuth2: token"
+            }, function (ret) {
+                if (ret.status > 0)
+                    r.ajaxKernel(url, data, type, successCallback, functionName);
+                else {
                     her.loadedSpring();
-                    summer.refreshHeaderLoadDone();
-                    summer.refreshFooterLoadDone();
-                    //alert("检查登录有效性失败");
-                    r.alertAIO(r.langFunk("netDisconnect"));
-                },
-                complete: function (XMLHttpRequest, status) {
-                    if (status == 'timeout') {
-                        r.alertAIO(r.langFunk("timeout"));
-                        //oldSkoolAjax.abort();
-                        r.checkTimeout(functionName);
-                    }
+                    summer.setStorage('loginStatus', 0);
+
+                    r.alertAIO(r.langFunk("invalidLogin"));
+                    r.openWinSpecial("login", "login", "login.html", {});
                 }
+            }, function (response) {
+                her.loadedSpring();
+
+                r.alertAIO(r.langFunk("netDisconnect"));
             });
         } else
-            r.ajaxKernel(url, data, successCallback, functionName);
+            r.ajaxKernel(url, data, type, successCallback, functionName);
     };
 
     /*土味AJAX*/
-    r.oldSkoolAjax = function (url, data, successCallback) {
+    r.oldSkoolAjax = function (url, data, type, successCallback) {
         her.loadingSpring(r.langFunk("loading"));
         // 判断网络
         if (!summer.netAvailable()) {
-            // summer.refreshHeaderLoadDone();
-            // summer.refreshFooterLoadDone();
-            // summer.toast({
-            // 	msg: "网络异常，请检查网络"
-            // });
             r.alertAIO(r.langFunk("invalidLogin"));
             her.loadedSpring();
             return false;
         }
 
         //判断登录状态是否有效
-        r.checkLogin(url, data, successCallback);
+        r.checkLogin(url, data, type, successCallback);
     };
 
     //打开窗口
@@ -184,6 +139,9 @@ window.roads = (function (win, r) {
                 break;
             case "receive":
                 baseUrl = r.G_BASE_RECEIVE_URL;
+                break;
+            case "income":
+                baseUrl = r.G_BASE_INCOME_URL;
                 break;
             case "login":
                 baseUrl = r.G_BASE_LOGIN_URL;
@@ -214,6 +172,9 @@ window.roads = (function (win, r) {
                 break;
             case "receive":
                 baseUrl = r.G_BASE_RECEIVE_URL;
+                break;
+            case "income":
+                baseUrl = r.G_BASE_INCOME_URL;
                 break;
             case "login":
                 baseUrl = r.G_BASE_LOGIN_URL;
@@ -249,6 +210,9 @@ window.roads = (function (win, r) {
                 break;
             case "receive":
                 baseUrl = r.G_BASE_RECEIVE_URL;
+                break;
+            case "income":
+                baseUrl = r.G_BASE_INCOME_URL;
                 break;
             case "login":
                 baseUrl = r.G_BASE_LOGIN_URL;

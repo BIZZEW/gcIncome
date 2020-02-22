@@ -49,6 +49,7 @@ function initPage() {
             deduction: "",
             supplierNetWeight: "",
             auditorCode: "",
+            refundStatus: "",
 
             containerNo: "",
 
@@ -108,6 +109,7 @@ function initPage() {
                             vue.deduction = parsedData.nabatebright;
                             vue.supplierNetWeight = parsedData.gfjz;
                             vue.auditor = parsedData.usercode;
+                            vue.refundStatus = parsedData.refundStatus;
 
                             vue.containerNo = parsedData.containerno;
                             break;
@@ -211,12 +213,30 @@ function initPage() {
             submitForm: function () {
                 // alert(this.sampleNo);
                 her.loadingSpring("请稍候..");
-                vue.uploadRecords();
+                vue.uploadRecords('N');
             },
-            uploadRecords: function () {
+            // 退货
+            refund: function () {
+                // alert(this.sampleNo);
+                UM.confirm({
+                    title: "提示",
+                    text: "确认退货？",
+                    btnText: "确认",
+                    btnText: ["取消", "确认"],
+                    overlay: true,
+                    duration: 2000,
+                    cancle: function () {
+                    },
+                    ok: function () {
+                        her.loadingSpring("请稍候..");
+                        vue.uploadRecords('Y');
+                    }
+                });
+            },
+            uploadRecords: function (returnFlag) {
                 if (vue.pkPoundbill == "") {
                     her.loadedSpring();
-                    roads.alertAIO("请先获取磅单再提交！");
+                    roads.alertAIO("请先获取磅单再提交或退货！");
                     return;
                 }
                 // if ((vue.driver == "") || (vue.plateNum == "") || (vue.planOrder == "") || (vue.pk_user == "") || (vue.pk_meamapply == "")) {
@@ -231,6 +251,7 @@ function initPage() {
                         "gfjz": vue.supplierNetWeight,
                         "nabatebright": vue.deduction,
                         "containerno": vue.containerNo,
+                        "isReturnGoods": returnFlag,
                     };
 
                     var soapXML = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ipur='http://webservice.app.itf.nc/IPurchaseAppWebService'><soapenv:Header/><soapenv:Body><ipur:updatePoundbill><string>" + JSON.stringify(param) + "</string></ipur:updatePoundbill></soapenv:Body></soapenv:Envelope>";

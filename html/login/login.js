@@ -194,6 +194,8 @@ function initPage() {
 
             // 提交表单
             login: function () {
+                // vue.loginStatus = 1;
+
                 if (!isEmpty(this.usrname) && !isEmpty(this.password)) {
                     //记住密码逻辑
                     summer.setStorage('remeberPD', (this.remeberPD) ? "1" : "0");
@@ -209,10 +211,9 @@ function initPage() {
                         "usercode": vue.usrcode,
                         "password": vue.password
                     };
-                    // alert(JSON.stringify(param));
-                    var soapXML = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ipur='http://webservice.app.itf.nc/IPurchaseAppWebService'><soapenv:Header/><soapenv:Body><ipur:login><string>" + JSON.stringify(param) + "</string></ipur:login></soapenv:Body></soapenv:Envelope>";
-                    roads.oldSkoolAjax(vue.loginIP + "/uapws/service/nc.itf.app.webservice.IPurchaseAppWebService/login", soapXML, function (data) {
-                        var result = JSON.parse($(data).find("return").html());
+                    roads.oldSkoolAjax(vue.loginIP + "/cusapl/userlogin", param, "post", function (res) {
+                        var result = JSON.parse(res.data);
+
                         switch (result.status) {
                             case -1:
                                 roads.alertAIO(result.message);
@@ -250,12 +251,6 @@ function initPage() {
                 return lang.getStr(vue.lang, strTag);
             },
             getUserList: function () {
-                // var test = {"message":"\u67e5\u8be2\u6210\u529f","flag":"100","status":"1","data":"[{ \"username\":\"pengming\",\"usercode\":\"pengming\"},{\"username\":\"\u6563\u88c5\u6d4b\u8bd5\u5ba2\u6237\",\"usercode\":\"25400224\"}]"};
-                // var userlistraw = test.data;
-                // vue.userList = eval(userlistraw);
-                // break;
-
-
                 if (vue.loginIP != "") {
                     var tmpLang = summer.getStorage('lang');
                     var lang = isEmpty(tmpLang) ? "1" : tmpLang;
@@ -263,10 +258,8 @@ function initPage() {
                         "lang": lang,
                         "flag": "0"
                     }
-                    var soapXML = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ipur='http://webservice.app.itf.nc/IPurchaseAppWebService'><soapenv:Header/><soapenv:Body><ipur:userList/></soapenv:Body></soapenv:Envelope>";
-                    //alert(val + "/uapws/service/nc.itf.app.webservice.IPurchaseAppWebService/userList");
-                    roads.oldSkoolAjax(vue.loginIP + "/uapws/service/nc.itf.app.webservice.IPurchaseAppWebService/userList", soapXML, function (data) {
-                        var result = JSON.parse($(data).find("return").html());
+                    roads.oldSkoolAjax(vue.loginIP + "/cusapl/userlist", param, "get", function (res) {
+                        var result = JSON.parse(res.data);
                         switch (parseInt(result.status)) {
                             case -1:
                                 roads.alertAIO(vue.langFunk("noUsr"));
