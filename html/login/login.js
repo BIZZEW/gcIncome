@@ -80,9 +80,6 @@ function initPage() {
             },
             //初始化页面
             fillPage: function () {
-                // var NCIPTmp = summer.getStorage('NCIP');
-                // vue.NCIP = isEmpty(NCIPTmp) ? "http://10.20.20.12:90" : NCIPTmp;
-
                 var langTmp = summer.getStorage('lang');
                 vue.lang = isEmpty(langTmp) ? 1 : langTmp;
 
@@ -96,22 +93,11 @@ function initPage() {
                     if (vue.loginStatus == 1 || vue.loginStatus == "1")
                         vue.goMenu("sale");
                 }, 1000);
-
-                // 不用选公司
-                // var loginCompanyStore = summer.getStorage('loginCompany');
-                // var loginCodeStore = summer.getStorage('loginCode');
+                
                 var loginIPStore = summer.getStorage('loginIP');
-                // var loginPkStore = summer.getStorage('loginPk');
-                // if (!isEmpty(loginCompanyStore)) {
-                //     this.loginCompany = loginCompanyStore;
-                //     this.coInput = loginCompanyStore;
-                // }
-                // if (!isEmpty(loginCodeStore))
-                //     this.loginCode = loginCodeStore;
+                
                 if (!isEmpty(loginIPStore))
                     this.loginIP = loginIPStore;
-                // if (!isEmpty(loginPkStore))
-                //     this.loginPk = loginPkStore;
 
                 var remeberPD = summer.getStorage('remeberPD');
                 var usrname = summer.getStorage('usrname');
@@ -178,11 +164,8 @@ function initPage() {
                                     "duration": 1000
                                 });
                                 //记录登录状态
-                                //alert(JSON.stringify(result.permission));
-                                // summer.setStorage('availableModules', result.permission);
                                 summer.setStorage('sessionId', result.sessionid);
                                 summer.setStorage('loginStatus', result.status);
-                                // vue.availableModules = result.permission;
                                 vue.sessionId = result.sessionid;
                                 vue.loginStatus = result.status;
                                 break;

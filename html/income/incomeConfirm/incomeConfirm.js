@@ -59,18 +59,6 @@ function initPage() {
             usercode: summer.getStorage('usrcode'),
         },
         methods: {
-            // onScroll: function (evt) {
-            //     console.log("scrollingnew");
-            //     var box = document.getElementsByClassName("ultra-list-item");
-            //     vue.threshold = box[0].clientHeight;
-            //     const el = evt.target;
-            //     const height = el.scrollHeight - el.offsetHeight;
-            //     const scroll = el.scrollTop;
-            //     const distance = height - scroll;
-            //     const needLoad = distance < vue.threshold;
-            //     if (needLoad && !vue.isLoading && vue.endFlag)
-            //         vue.loadMore();
-            // },
             onValueChange: function (picker, value) { },
             // 打开日期picker 视图
             open: function (picker) {
@@ -131,69 +119,6 @@ function initPage() {
             goback: function () {
                 roads.closeWin();
             },
-            // loadMore: function () {
-            //     if (!vue.spinning) {
-            //         vue.isLoading = true;
-            //         vue.spinning = true;
-            //         vue.loadText = "正在加载更多";
-            //         // var param = {
-            //         //     // "user": vue.usrcode,
-            //         //     "startDate": vue.beginDate,
-            //         //     "endDate": vue.stopDate,
-            //         //     "currentPage": (vue.currentPage + 1)
-            //         // };
-            //         var param = {
-            //             "usercode": vue.usercode,
-            //             // "begindate": vue.beginDate + " 00:00:00",
-            //             // "enddate": vue.stopDate + " 23:59:59",
-            //             "currentPage": (vue.currentPage + 1)
-            //         };
-            //         var url = vue.loginIP + "/uapws/service/nc.itf.app.webservice.IPurchaseAppWebService/getpoundbillinfo";
-            //         var soapXML = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ipur='http://webservice.app.itf.nc/IPurchaseAppWebService'><soapenv:Header/><soapenv:Body><ipur:getpoundbillinfo><string>" + JSON.stringify(param) + "</string></ipur:getpoundbillinfo></soapenv:Body></soapenv:Envelope>";
-            //         $.ajax({
-            //             url: url,
-            //             type: "POST",
-            //             dataType: "xml",
-            //             contentType: "text/xml; charset=utf-8",
-            //             data: soapXML,
-            //             async: true,
-            //             timeout: 5000,
-            //             beforeSend: function (xhr) {
-            //                 xhr.setRequestHeader("User-Agent", "headertest");
-            //             },
-            //             success: function (data) {
-            //                 var result = JSON.parse($(data).find("return").html());
-            //                 switch (result.status) {
-            //                     case -1:
-            //                         vue.loadText = "加载失败，点击重试";
-            //                         break;
-            //                     case 1:
-            //                         //接收是否还可以加载更多的标识
-            //                         vue.endFlag = result.endFlag;
-            //                         //接收新的一页数据
-            //                         var moreList = JSON.parse(result.data);
-            //                         //插入数据
-            //                         for (var i = 0; i < moreList.length; i++)
-            //                             vue.logList.push(moreList[i]);
-            //                         //当前请求数据页码自增
-            //                         vue.currentPage++;
-            //                         //加载部件隐藏
-            //                         vue.isLoading = false;
-            //                         break;
-            //                     default:
-            //                         break;
-            //                 }
-            //             },
-            //             error: function (err) {
-            //                 vue.loadText = "加载失败，点击重试";
-            //             },
-            //             complete: function (XMLHttpRequest, status) {
-            //                 //停止旋转
-            //                 vue.spinning = false;
-            //             }
-            //         });
-            //     }
-            // }
         },
         watch: {},
         mounted: function () {
@@ -203,17 +128,6 @@ function initPage() {
                 document.addEventListener("backbutton", this.goback, false);
 
                 this.query();
-
-                // var topBar = document.getElementsByClassName("um-header")[0];
-                // var queryKit = document.getElementsByClassName("query-kit")[0];
-                // var ultraScrollList = document.getElementsByClassName("ultra-scroll-list")[0];
-
-                // const windowHeight = document.body.clientHeight;
-                // const topBarHeight = 44;
-                // const queryKitHeight = 185;
-                // var tmpHeight = windowHeight - topBarHeight - queryKitHeight;
-                // // ultraScrollList.style.height = tmpHeight + "px";
-                // ultraScrollList.style.height = windowHeight + "px";
             })
         }
     });
