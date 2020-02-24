@@ -50,8 +50,6 @@ function initPage() {
                 var t = setTimeout(function () {
                     var versionInfo = summer.getAppVersion();
                     var version = JSON.parse(versionInfo);
-                    //var productIP = "http://192.168.10.166:80";
-                    //var testIP = "http://172.16.14.212:8280";
                     var NCIPTmp = summer.getStorage('NCIP');
                     var NCIP = isEmpty(NCIPTmp) ? "http://192.168.10.166:80" : NCIPTmp;
                     var tmpLang = summer.getStorage('lang');

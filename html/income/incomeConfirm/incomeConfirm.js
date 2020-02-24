@@ -26,11 +26,6 @@ function initPage() {
         el: '#index',
         data: {
             loginIP: summer.getStorage('loginIP'),
-
-            // baseUrl: summer.getStorage('loginIP') + "/uapws/service/nc.itf.app.webservice.AppWebService/",
-            // baseUrlSale: summer.getStorage('loginIP') + "/uapws/service/nc.itf.app.webservice.AppDeliveryQueryService/",
-            // baseUrlSaleIdol: "http://192.168.13.248:8888/uapws/service/nc.itf.app.webservice.AppDeliveryQueryService/",
-            //baseUrlSale : "http://172.16.14.232:80/uapws/service/nc.itf.app.webservice.AppDeliveryQueryService/",
             dept: summer.pageParam.dept,
             module_id: summer.pageParam.module_id,
             module_title: summer.pageParam.module_title,

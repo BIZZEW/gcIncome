@@ -50,16 +50,8 @@ function initPage() {
             loginIP: "",
             loginPk: "",
 
-            //选中的公司信息
-            // selectStatus: false,
-            // selectedName: "",
-            // selectedCode: "",
-            // selectedIp: "",
-            // selectedPk: "",
-
             //输入的搜索词
             coInput: "",
-            // userList: [{ username: "5555" }, { username: "5555" }, { username: "5555" }, { username: "5555" }, { username: "5555" }, ],
             userList: [],
             coList: [],
             availableModules: "",
@@ -148,49 +140,6 @@ function initPage() {
                 this.usrcode = item.usercode;
                 this.usrtype = item.logo;
             },
-
-            /* coInputGetFocus: function() {
-                vue.selectStatus = true;
-            },
-            coItemClick: function(index) {
-                var item = this.coList[index];
-                vue.selectStatus = false;
-                vue.coInput = item.def2;
-                vue.selectedName = item.def2;
-                vue.selectedCode = item.def1;
-                vue.selectedIp = item.def3;
-                vue.selectedPk = item.pk_org;
-                vue.coList = [];
-            },
-            coWindowConfirm: function() {
-                vue.coWindowToggle = false;
-                vue.loginCompany = vue.selectedName;
-                vue.loginCode = vue.selectedCode;
-                vue.loginIP = vue.selectedIp;
-                vue.loginPk = vue.selectedPk;
-
-                summer.setStorage('loginCompany', vue.loginCompany);
-                summer.setStorage('loginCode', vue.loginCode);
-                summer.setStorage('loginIP', vue.loginIP);
-                summer.setStorage('loginPk', vue.loginPk);
-            },
-            coWindowCancel: function() {
-                vue.coWindowToggle = false;
-                vue.coInput = vue.loginCompany;
-                vue.selectedName = "";
-                vue.selectedCode = "";
-                vue.selectedIp = "";
-                vue.selectedPk = "";
-            },
-            coInputReset: function() {
-                vue.coList = [];
-                vue.coInput = "";
-                vue.selectedName = "";
-                vue.selectedCode = "";
-                vue.selectedIp = "";
-                vue.selectedPk = "";
-                vue.selectStatus = false;
-            }, */
 
             // 提交表单
             login: function () {
@@ -281,51 +230,6 @@ function initPage() {
             }
         },
         watch: {
-            // NCIP: function (val) {
-            //     summer.setStorage("NCIP", val);
-            // },
-            // coInput: function(val) {
-            //     if (vue.selectStatus) {
-            //         var tmpLang = summer.getStorage('lang');
-            //         var lang = isEmpty(tmpLang) ? "1" : tmpLang;
-            //         var param = {
-            //             "lang": lang,
-            //             "orgname": val
-            //         };
-            //         var soapXML = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:iap='http://service.sd.itf.nc/IAppSDService'><soapenv:Header/><soapenv:Body><iap:getCoList><orgCodeOrName>" + JSON.stringify(param) + "</orgCodeOrName></iap:getCoList></soapenv:Body></soapenv:Envelope>";
-            //         $.ajax({
-            //             url: vue.NCIP + "/uapws/service/nc.itf.sd.service.IAppSDService/getCoList",
-            //             type: "POST",
-            //             dataType: "xml",
-            //             contentType: "text/xml; charset=utf-8",
-            //             data: soapXML,
-            //             async: true,
-            //             timeout: 5000,
-            //             beforeSend: function(xhr) {
-            //                 xhr.setRequestHeader("User-Agent", "headertest");
-            //             },
-            //             success: function(data) {
-            //                 var result = JSON.parse($(data).find("return").html());
-            //                 switch (result.status) {
-            //                     case -1:
-            //                         vue.coList = [];
-            //                         break;
-            //                     case 1:
-            //                         vue.coList = eval(result.data);
-            //                         break;
-            //                     default:
-            //                         break;
-            //                 }
-            //             },
-            //             error: function(err) {},
-            //             complete: function(XMLHttpRequest, status) {}
-            //         });
-
-            //         var el = $('.coList .pulldown-toggle');
-            //         if (!el.hasClass('open'))
-            //             el.addClass('open');
-            //     }
-            // },
             lang: function (val) {
                 summer.setStorage('lang', val);
             },
@@ -334,37 +238,6 @@ function initPage() {
                     vue.goMenu("sale");
                 }
             },
-            // loginIP: function (val) {
-            //     if (val != "") {
-            //         var tmpLang = summer.getStorage('lang');
-            //         var lang = isEmpty(tmpLang) ? "1" : tmpLang;
-            //         var param = {
-            //             "lang": lang,
-            //             "flag": "0"
-            //         }
-            //         var soapXML = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ipur='http://webservice.app.itf.nc/IPurchaseAppWebService'><soapenv:Header/><soapenv:Body><ipur:userList/></soapenv:Body></soapenv:Envelope>";
-            //         //alert(val + "/uapws/service/nc.itf.app.webservice.IPurchaseAppWebService/userList");
-            //         roads.oldSkoolAjax(val + "/uapws/service/nc.itf.app.webservice.IPurchaseAppWebService/userList", soapXML, function (data) {
-            //             var result = JSON.parse($(data).find("return").html());
-            //             switch (result.status) {
-            //                 case -1:
-            //                     roads.alertAIO(vue.langFunk("noUsr"));
-            //                     vue.userList = [];
-            //                     break;
-            //                 case 1:
-            //                     var userlistraw = result.data;
-            //                     vue.userList = eval(userlistraw);
-            //                     break;
-            //                 case 0:
-            //                     roads.alertAIO(0);
-            //                     vue.userList = [];
-            //                     break;
-            //                 default:
-            //                     break;
-            //             }
-            //         });
-            //     }
-            // }
         },
         mounted: function () {
             // 加载数据...

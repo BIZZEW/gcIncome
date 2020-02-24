@@ -39,7 +39,7 @@
             </div>
 
             <div id="ultra-scroll-list" class="ultra-scroll-list" style="margin: 0;">
-                <div class="ultra-list-item" v-for="(item, index) in logList" @click="goDetail(index)">
+                <div class="ultra-list-item" v-for="(item, index) in logList" @click="goDetail(index)" v-cloak>
                     <div class="log-item-inner">
                         <div class="log-item-row">
                             <div class="log-item-content" v-text='"结算方式:\xa0\xa0"+item.paymethod'></div>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item-id" v-text="index+1"></div>
+                    <!-- <div class="item-id" v-text="index+1"></div> -->
                     <!-- <div class="item-detail-tag">详情</div> -->
                 </div>
                 <div id="spinner" :class="(spinning ? ('spinner spinning') : ('spinner'))" v-if="(logList.length!=0) && endFlag && isLoading" v-text="loadText" @click="loadMore()"></div>
