@@ -19,6 +19,7 @@
     <script type="text/javascript" src="../../../../js/vue.js"></script>
     <script type="text/javascript" src="../../../../js/mintui.js"></script>
     <script type="text/javascript" src="../../../util/util.js"></script>
+    <script type="text/javascript" src="../../../util/lang/lang.js"></script>
     <script type="text/javascript" src="../../../../js/her.min.js"></script>
     <script type="text/javascript" src="incomeConfirmDetail.js"></script>
 </head>
@@ -62,8 +63,7 @@
 
             <div class="ultra-item">
                 <label class="ultra-label">收款银行账号</label>
-                <div class="ultra-content"><input placeholder="收款银行账号" type="number" v-model="account2"
-                        readonly>
+                <div class="ultra-content"><input placeholder="收款银行账号" type="number" v-model="account2" readonly>
                 </div>
             </div>
 
@@ -79,11 +79,12 @@
                         @click="popupVisibleInoutbusiclass = true" readonly></div>
             </div>
 
-            <div class="ultra-bottom-btns" v-if="!inputStatus">
-                <div class="ultra-bottom-btn" @click="submitForm()" style="width: 100%;">
-                    <div class="icon iconfont icon-submit"></div>
-                    <div style="margin-left: 5px;">提&nbsp;&nbsp;&nbsp;&nbsp;交</div>
-                </div>
+        </div>
+
+        <div class="ultra-bottom-btns" v-if="!inputStatus">
+            <div class="ultra-bottom-btn" @click="submitForm()" style="width: 100%;">
+                <div class="icon iconfont icon-submit"></div>
+                <div style="margin-left: 5px;">提&nbsp;&nbsp;&nbsp;&nbsp;交</div>
             </div>
         </div>
 

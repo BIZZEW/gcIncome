@@ -117,28 +117,7 @@ function initPage() {
             popupVisibleInoutbusiclass: false,
             inoutbusiclass: null,
             pk_inoutbusiclass: null,
-            inoutbusiclasses: [
-                {
-                    values: [
-                        {
-                            "name": "inoutbusiclass0",
-                            "pk_inoutbusiclass": "pk_inoutbusiclass0"
-                        },
-                        {
-                            "name": "inoutbusiclass1",
-                            "pk_inoutbusiclass": "pk_inoutbusiclass1"
-                        },
-                        {
-                            "name": "inoutbusiclass2",
-                            "pk_inoutbusiclass": "pk_inoutbusiclass2"
-                        },
-                        {
-                            "name": "inoutbusiclass3",
-                            "pk_inoutbusiclass": "pk_inoutbusiclass3"
-                        }
-                    ]
-                }
-            ],
+            inoutbusiclasses: [],
         },
         methods: {
             fillPage0: function () {
@@ -147,8 +126,8 @@ function initPage() {
                 vue.infodate = parsedData.infodate;
                 vue.paymethod = parsedData.paymethod;
                 vue.oppunitname = parsedData.oppunitname;
-                vue.account1 = parsedData.account1;
-                vue.account2 = parsedData.account2;
+                // vue.account1 = parsedData.account1;
+                // vue.account2 = parsedData.account2;
                 vue.releasemoney = parsedData.releasemoney;
             },
             // 返回
@@ -184,33 +163,37 @@ function initPage() {
                 this.popupVisibleInoutbusiclass = false;
             },
             getInoutbusiclasses: function () {
-                var param = {
-                    pk_org: "test"
-                }
-                roads.oldSkoolAjax(vue.loginIP + "/cusapl/refproject", param, "post", function (res) {
-                    var result = JSON.parse(res.data);
-                    switch (parseInt(result.status)) {
-                        case -1:
-                            // roads.alertAIO(vue.langFunk("noUsr"));
-                            vue.inoutbusiclasses = [];
-                            break;
-                        case 1:
-                            var inoutbusiclasslist = result.data;
-                            var tmpList = [
-                                {
-                                    values: eval(inoutbusiclasslist)
-                                }
-                            ]
-                            vue.inoutbusiclasses = tmpList;
-                            break;
-                        case 0:
-                            roads.alertAIO(0);
-                            vue.inoutbusiclasses = [];
-                            break;
-                        default:
-                            break;
+                try {
+                    var param = {
+                        pk_org: "test"
                     }
-                });
+                    roads.oldSkoolAjax(vue.loginIP + "/cusapl/refproject", param, "post", function (res) {
+                        var result = JSON.parse(res.data);
+                        switch (result.status) {
+                            case -1:
+                                // roads.alertAIO(vue.langFunk("noUsr"));
+                                vue.inoutbusiclasses = [];
+                                break;
+                            case 1:
+                                var tmplist = [{
+                                    values: eval(result.data)
+                                }]
+                                vue.inoutbusiclasses = [{
+                                    values: eval(result.data)
+                                }];
+                                break;
+                            case 0:
+                                roads.alertAIO(0);
+                                vue.inoutbusiclasses = [];
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                } catch (e) {
+                    alert(e)
+                }
+
             },
             getCustomers: function () {
                 var param = {
