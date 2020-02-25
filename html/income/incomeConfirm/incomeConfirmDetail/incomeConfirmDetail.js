@@ -19,65 +19,228 @@ function isEmpty(obj) {
     }
 };
 
+const customers = [
+    {
+        "code": "001",
+        "name": "省份1",
+        "childs": [
+            {
+                "code": "001-1",
+                "name": "城市1",
+            },
+            {
+                "code": "001-2",
+                "name": "城市2",
+            }
+        ]
+    },
+    {
+        "code": "002",
+        "name": "省份2",
+        "childs": [
+            {
+                "code": "002-1",
+                "name": "城市3",
+            },
+            {
+                "code": "002-2",
+                "name": "城市4",
+            }
+        ]
+    },
+    {
+        "code": "003",
+        "name": "省份3",
+        "childs": [
+            {
+                "code": "003-1",
+                "name": "城市5",
+            },
+            {
+                "code": "003-2",
+                "name": "城市6",
+            }
+        ]
+    },
+];
+
 var vue = null;
 
 function initPage() {
     vue = new Vue({
         el: '#index',
         data: {
-            /*public??*/
-            nfcStatus: 0,
-            baseUrl: summer.getStorage('baseUrl'),
-            inputStatus: 0,
-            bandShow: false,
-            turn: 0,
+            loginIP: summer.getStorage('loginIP'),
             dept: summer.pageParam.dept,
             module_id: summer.pageParam.module_id,
             module_title: summer.pageParam.module_title,
             content: summer.pageParam.itemContent,
 
-            plateNum: "",
-            pkPoundbill: "",
-            vbillcode: "",
-            grossWeight: "",
-            materialName: "",
-            supplierName: "",
-            transporterName: "",
-            auditorName: "",
-            auditionTime: "",
-            auditionComment: "",
-            deduction: "",
-            supplierNetWeight: "",
-            auditorCode: "",
-            refundStatus: "",
+            // 到账通知PK
+            pk_informer: "",
 
-            containerNo: "",
+            infodate: "",
+            paymethod: "",
+            oppunitname: "",
+            customer: "",
+            account1: "",
+            account2: "",
+            releasemoney: "",
+
+            // 订单客户
+            popupVisibleCustomer: false,
+            customer: null,
+            pk_customer: null,
+            customers: [
+                {
+                    values: [
+                        {
+                            "name": "customers0",
+                            "pk_customer": "pk_customer0"
+                        },
+                        {
+                            "name": "customers1",
+                            "pk_customer": "pk_customer1"
+                        },
+                        {
+                            "name": "customers2",
+                            "pk_customer": "pk_customer2"
+                        },
+                        {
+                            "name": "customers3",
+                            "pk_customer": "pk_customer3"
+                        }
+                    ]
+                }
+            ],
+            // 收支项目
+            popupVisibleInoutbusiclass: false,
+            inoutbusiclass: null,
+            pk_inoutbusiclass: null,
+            inoutbusiclasses: [
+                {
+                    values: [
+                        {
+                            "name": "inoutbusiclass0",
+                            "pk_inoutbusiclass": "pk_inoutbusiclass0"
+                        },
+                        {
+                            "name": "inoutbusiclass1",
+                            "pk_inoutbusiclass": "pk_inoutbusiclass1"
+                        },
+                        {
+                            "name": "inoutbusiclass2",
+                            "pk_inoutbusiclass": "pk_inoutbusiclass2"
+                        },
+                        {
+                            "name": "inoutbusiclass3",
+                            "pk_inoutbusiclass": "pk_inoutbusiclass3"
+                        }
+                    ]
+                }
+            ],
         },
         methods: {
             fillPage0: function () {
                 var parsedData = JSON.parse(vue.content);
 
-                vue.plateNum = parsedData.vvehicle;
-                vue.pkPoundbill = parsedData.pk_poundbill;
-                vue.vbillcode = parsedData.vbillcode;
-                vue.grossWeight = parsedData.ngross;
-                vue.materialName = parsedData.materialname;
-                vue.supplierName = parsedData.suppliername;
-                vue.transporterName = parsedData.trname;
-                vue.auditorName = parsedData.ysrname;
-                vue.auditionTime = parsedData.ysdate;
-                vue.auditionComment = parsedData.ysyj;
-                vue.deduction = parsedData.nabatebright;
-                vue.supplierNetWeight = parsedData.gfjz;
-                vue.auditor = parsedData.usercode;
-                vue.refundStatus = parsedData.refundStatus;
-
-                vue.containerNo = parsedData.containerno;
+                vue.infodate = parsedData.infodate;
+                vue.paymethod = parsedData.paymethod;
+                vue.oppunitname = parsedData.oppunitname;
+                vue.account1 = parsedData.account1;
+                vue.account2 = parsedData.account2;
+                vue.releasemoney = parsedData.releasemoney;
             },
             // 返回
             goback: function () {
                 roads.closeWin();
             },
+            onValuesChange(picker, values) {
+                // if (!values[0]) {
+                //     this.$nextTick(() => {
+                //         if (this.customer) {
+                //             // 赋默认值
+                //         } else {
+                //             picker.setValues([customers[0], customers[0].childs[0]])
+                //         }
+                //     });
+                // } else {
+                //     picker.setSlotValues(1, values[0].childs);
+                //     let town = [];
+                //     if (values[1]) {
+                //         town = values[1].childs;
+                //     }
+                //     picker.setSlotValues(2, town);
+                // }
+            },
+            confirmChangeCustomer: function () {
+                this.customer = this.$refs.customerPicker.getValues()[0].name;
+                this.pk_customer = this.$refs.customerPicker.getValues()[0].pk_customer;
+                this.popupVisibleCustomer = false;
+            },
+            confirmChangeInoutbusiclass: function () {
+                this.inoutbusiclass = this.$refs.inoutbusiclassPicker.getValues()[0].name;
+                this.pk_inoutbusiclass = this.$refs.inoutbusiclassPicker.getValues()[0].pk_inoutbusiclass;
+                this.popupVisibleInoutbusiclass = false;
+            },
+            getInoutbusiclasses: function () {
+                var param = {
+                    pk_org: "test"
+                }
+                roads.oldSkoolAjax(vue.loginIP + "/cusapl/refproject", param, "post", function (res) {
+                    var result = JSON.parse(res.data);
+                    switch (parseInt(result.status)) {
+                        case -1:
+                            // roads.alertAIO(vue.langFunk("noUsr"));
+                            vue.inoutbusiclasses = [];
+                            break;
+                        case 1:
+                            var inoutbusiclasslist = result.data;
+                            var tmpList = [
+                                {
+                                    values: eval(inoutbusiclasslist)
+                                }
+                            ]
+                            vue.inoutbusiclasses = tmpList;
+                            break;
+                        case 0:
+                            roads.alertAIO(0);
+                            vue.inoutbusiclasses = [];
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            },
+            getCustomers: function () {
+                var param = {
+                    pk_org: "test"
+                }
+                roads.oldSkoolAjax(vue.loginIP + "/cusapl/refproject", param, "post", function (res) {
+                    var result = JSON.parse(res.data);
+                    switch (parseInt(result.status)) {
+                        case -1:
+                            // roads.alertAIO(vue.langFunk("noUsr"));
+                            vue.inoutbusiclasses = [];
+                            break;
+                        case 1:
+                            var inoutbusiclasslist = result.data;
+                            var tmpList = [
+                                {
+                                    values: eval(inoutbusiclasslist)
+                                }
+                            ]
+                            vue.inoutbusiclasses = tmpList;
+                            break;
+                        case 0:
+                            roads.alertAIO(0);
+                            vue.inoutbusiclasses = [];
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
         },
         watch: {},
         mounted: function () {
@@ -87,6 +250,8 @@ function initPage() {
                 document.addEventListener("backbutton", this.goback, false);
 
                 vue.fillPage0();
+                vue.getInoutbusiclasses();
+                // vue.getCustomers();
             })
         }
     });
