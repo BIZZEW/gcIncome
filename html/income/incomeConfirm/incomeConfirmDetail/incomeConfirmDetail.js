@@ -75,60 +75,67 @@ function initPage() {
             module_id: summer.pageParam.module_id,
             module_title: summer.pageParam.module_title,
             content: summer.pageParam.itemContent,
-
-            // 到账通知PK
-            pk_informer: "",
+            usercode: summer.getStorage('usrcode'),
 
             infodate: "",
             paymethod: "",
-            oppunitname: "",
-            customer: "",
             account1: "",
             account2: "",
             releasemoney: "",
 
+            // 客户
+            oppunitname: "",
+            pk_oppunitname: "",
             // 订单客户
             popupVisibleCustomer: false,
-            customer: null,
-            pk_customer: null,
-            customers: [
-                {
-                    values: [
-                        {
-                            "name": "customers0",
-                            "pk_customer": "pk_customer0"
-                        },
-                        {
-                            "name": "customers1",
-                            "pk_customer": "pk_customer1"
-                        },
-                        {
-                            "name": "customers2",
-                            "pk_customer": "pk_customer2"
-                        },
-                        {
-                            "name": "customers3",
-                            "pk_customer": "pk_customer3"
-                        }
-                    ]
-                }
-            ],
+            ordername: null,
+            pk_ordercustomer: null,
+            customers: [],
+
             // 收支项目
             popupVisibleInoutbusiclass: false,
             inoutbusiclass: null,
             pk_inoutbusiclass: null,
             inoutbusiclasses: [],
+
+            // 人员PK
+            pk_psndoc: "",
+            // 资金计划PK
+            pk_plan: "",
+            // 资金计划名称
+            planname: "",
+            // 资金计划编码
+            plancode: "",
+            // 部门PK
+            pk_dept: "",
+
+            // 组织PK
+            pk_org: "",
+            // 到账通知PK
+            pk_informer: "",
         },
         methods: {
             fillPage0: function () {
                 var parsedData = JSON.parse(vue.content);
 
+                vue.pk_org = parsedData.pk_org;
+                vue.pk_informer = parsedData.pk_informer;
+
+                // 客户
+                vue.oppunitname = parsedData.oppunitname;
+                vue.pk_oppunitname = parsedData.pk_oppunitname;
+                // 订单客户
+                vue.ordername = parsedData.oppunitname;
+                vue.pk_ordercustomer = parsedData.pk_oppunitname;
+
                 vue.infodate = parsedData.infodate;
                 vue.paymethod = parsedData.paymethod;
-                vue.oppunitname = parsedData.oppunitname;
-                // vue.account1 = parsedData.account1;
-                // vue.account2 = parsedData.account2;
+                vue.account1 = parsedData.account1;
+                vue.account2 = parsedData.account2;
                 vue.releasemoney = parsedData.releasemoney;
+
+                vue.getCustomers();
+                vue.getInoutbusiclasses();
             },
             // 返回
             goback: function () {
@@ -153,19 +160,32 @@ function initPage() {
                 // }
             },
             confirmChangeCustomer: function () {
-                this.customer = this.$refs.customerPicker.getValues()[0].name;
-                this.pk_customer = this.$refs.customerPicker.getValues()[0].pk_customer;
+                this.ordername = this.$refs.customerPicker.getValues()[0].ordername;
+                this.pk_ordercustomer = this.$refs.customerPicker.getValues()[0].pk_ordercustomer;
                 this.popupVisibleCustomer = false;
             },
             confirmChangeInoutbusiclass: function () {
                 this.inoutbusiclass = this.$refs.inoutbusiclassPicker.getValues()[0].name;
                 this.pk_inoutbusiclass = this.$refs.inoutbusiclassPicker.getValues()[0].pk_inoutbusiclass;
+
+                // 人员PK
+                this.pk_psndoc = this.$refs.inoutbusiclassPicker.getValues()[0].pk_psndoc;
+                // 资金计划PK
+                this.pk_plan = this.$refs.inoutbusiclassPicker.getValues()[0].pk_plan;
+                // 资金计划名称
+                this.planname = this.$refs.inoutbusiclassPicker.getValues()[0].planname;
+                // 资金计划编码
+                this.plancode = this.$refs.inoutbusiclassPicker.getValues()[0].plancode;
+                // 部门PK
+                this.pk_dept = this.$refs.inoutbusiclassPicker.getValues()[0].pk_dept;
+
                 this.popupVisibleInoutbusiclass = false;
             },
             getInoutbusiclasses: function () {
                 try {
                     var param = {
-                        pk_org: "test"
+                        pk_org: vue.pk_org,
+                        usercode: vue.usercode,
                     }
                     roads.oldSkoolAjax(vue.loginIP + "/cusapl/refproject", param, "post", function (res) {
                         var result = JSON.parse(res.data);
@@ -175,12 +195,11 @@ function initPage() {
                                 vue.inoutbusiclasses = [];
                                 break;
                             case 1:
-                                var tmplist = [{
-                                    values: eval(result.data)
-                                }]
-                                vue.inoutbusiclasses = [{
-                                    values: eval(result.data)
-                                }];
+                                vue.inoutbusiclasses = [
+                                    {
+                                        values: eval(result.data)
+                                    }
+                                ];
                                 break;
                             case 0:
                                 roads.alertAIO(0);
@@ -197,27 +216,33 @@ function initPage() {
             },
             getCustomers: function () {
                 var param = {
-                    pk_org: "test"
+                    pk_oppunitname: vue.pk_oppunitname,
+                    oppunitname: vue.oppunitname
                 }
-                roads.oldSkoolAjax(vue.loginIP + "/cusapl/refproject", param, "post", function (res) {
+                roads.oldSkoolAjax(vue.loginIP + "/cusapl/refordercustomer", param, "post", function (res) {
                     var result = JSON.parse(res.data);
                     switch (parseInt(result.status)) {
                         case -1:
                             // roads.alertAIO(vue.langFunk("noUsr"));
-                            vue.inoutbusiclasses = [];
+                            vue.customers = [];
                             break;
                         case 1:
-                            var inoutbusiclasslist = result.data;
-                            var tmpList = [
+                            var customerslist = eval(result.data);
+                            // 把客户也插入订单客户的下拉选项列表里
+                            customerslist.push({
+                                pk_ordercustomer: vue.pk_oppunitname,
+                                ordername: vue.oppunitname
+                            });
+
+                            vue.customers = [
                                 {
-                                    values: eval(inoutbusiclasslist)
+                                    values: customerslist
                                 }
-                            ]
-                            vue.inoutbusiclasses = tmpList;
+                            ];
                             break;
                         case 0:
                             roads.alertAIO(0);
-                            vue.inoutbusiclasses = [];
+                            vue.customers = [];
                             break;
                         default:
                             break;
@@ -233,7 +258,7 @@ function initPage() {
                 document.addEventListener("backbutton", this.goback, false);
 
                 vue.fillPage0();
-                vue.getInoutbusiclasses();
+                // vue.getInoutbusiclasses();
                 // vue.getCustomers();
             })
         }

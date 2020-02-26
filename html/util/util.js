@@ -63,7 +63,7 @@ window.roads = (function (win, r) {
             url: url,
             param: param,
             header: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json:charset=UTF-8"
             }
         }, function (ret) {
             her.loadedSpring();

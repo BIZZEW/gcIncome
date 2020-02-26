@@ -51,7 +51,7 @@
 
             <div class="ultra-item">
                 <label class="ultra-label">订单客户</label>
-                <div class="ultra-content"><input placeholder="订单客户" type="text" v-model="customer"
+                <div class="ultra-content"><input placeholder="订单客户" type="text" v-model="ordername"
                         @click="popupVisibleCustomer = true" readonly></div>
             </div>
 
@@ -73,10 +73,15 @@
                 </div>
             </div>
 
-            <div class="ultra-item" style="margin-bottom: 100px">
+            <div class="ultra-item">
                 <label class="ultra-label">收支项目</label>
                 <div class="ultra-content"><input placeholder="收支项目" type="text" v-model="inoutbusiclass"
                         @click="popupVisibleInoutbusiclass = true" readonly></div>
+            </div>
+
+            <div class="ultra-item" style="margin-bottom: 100px">
+                <label class="ultra-label">资金计划</label>
+                <div class="ultra-content"><input placeholder="资金计划" type="text" v-model="planname" readonly></div>
             </div>
 
         </div>
@@ -89,7 +94,7 @@
         </div>
 
         <mt-popup v-model="popupVisibleCustomer" position="bottom">
-            <mt-picker :slots="customers" :show-toolbar=true value-key="name" @change="onValuesChange"
+            <mt-picker :slots="customers" :show-toolbar=true value-key="ordername" @change="onValuesChange"
                 :visible-item-count="7" ref="customerPicker">
                 <span @click="popupVisibleCustomer= false" class="custom-toolbar-btn cancel-btn">取消</span>
                 <span @click="confirmChangeCustomer" class="custom-toolbar-btn confirm-btn">确认</span>
