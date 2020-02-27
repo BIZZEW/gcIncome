@@ -119,6 +119,9 @@ function initPage() {
             goback: function () {
                 roads.closeWin();
             },
+            formSubmitted: function (param) {
+                roads.alertAIO("表单数据提交成功！");
+            }
         },
         watch: {},
         mounted: function () {

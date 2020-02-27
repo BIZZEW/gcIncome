@@ -71,6 +71,7 @@ function initPage() {
         el: '#index',
         data: {
             loginIP: summer.getStorage('loginIP'),
+            inputStatus: 0,
             dept: summer.pageParam.dept,
             module_id: summer.pageParam.module_id,
             module_title: summer.pageParam.module_title,
@@ -108,6 +109,8 @@ function initPage() {
             plancode: "",
             // 部门PK
             pk_dept: "",
+            // 用户PK
+            cuserid: "",
 
             // 组织PK
             pk_org: "",
@@ -178,6 +181,8 @@ function initPage() {
                 this.plancode = this.$refs.inoutbusiclassPicker.getValues()[0].plancode;
                 // 部门PK
                 this.pk_dept = this.$refs.inoutbusiclassPicker.getValues()[0].pk_dept;
+                // 用户PK
+                this.cuserid = this.$refs.inoutbusiclassPicker.getValues()[0].cuserid;
 
                 this.popupVisibleInoutbusiclass = false;
             },
@@ -212,7 +217,6 @@ function initPage() {
                 } catch (e) {
                     alert(e)
                 }
-
             },
             getCustomers: function () {
                 var param = {
@@ -223,8 +227,10 @@ function initPage() {
                     var result = JSON.parse(res.data);
                     switch (parseInt(result.status)) {
                         case -1:
-                            // roads.alertAIO(vue.langFunk("noUsr"));
-                            vue.customers = [];
+                            roads.alertAIO(result.message);
+                            break;
+                        case 0:
+                            roads.alertAIO(result.message);
                             break;
                         case 1:
                             var customerslist = eval(result.data);
@@ -240,14 +246,80 @@ function initPage() {
                                 }
                             ];
                             break;
-                        case 0:
-                            roads.alertAIO(0);
-                            vue.customers = [];
+                        case 2:
+                            roads.alertAIO(result.message);
                             break;
                         default:
                             break;
                     }
                 });
+            },
+            submitForm: function () {
+                try {
+                    if (vue.pk_inoutbusiclass) {
+                        var param = {
+                            usercode: vue.usercode,
+
+                            infodate: vue.infodate,
+                            paymethod: vue.paymethod,
+                            account1: vue.account1,
+                            account2: vue.account2,
+                            releasemoney: vue.releasemoney,
+
+                            // 客户
+                            oppunitname: vue.oppunitname,
+                            pk_oppunitname: vue.pk_oppunitname,
+                            // 订单客户
+                            ordername: vue.ordername,
+                            pk_ordercustomer: vue.pk_ordercustomer,
+
+                            // 收支项目
+                            inoutbusiclass: vue.inoutbusiclass,
+                            pk_inoutbusiclass: vue.pk_inoutbusiclass,
+
+                            // 人员PK
+                            pk_psndoc: vue.pk_psndoc,
+                            // 资金计划PK
+                            pk_plan: vue.pk_plan,
+                            // 资金计划名称
+                            planname: vue.planname,
+                            // 资金计划编码
+                            plancode: vue.plancode,
+                            // 部门PK
+                            pk_dept: vue.pk_dept,
+                            // 用户PK
+                            cuserid: vue.cuserid,
+
+                            // 组织PK
+                            pk_org: vue.pk_org,
+                            // 到账通知PK
+                            pk_informer: vue.pk_informer,
+                        }
+                        // alert(JSON.stringify(param));
+                        roads.oldSkoolAjax(vue.loginIP + "/cusapl/createreceiv", param, "post", function (res) {
+                            // alert(JSON.stringify(res));
+                            var result = JSON.parse(res.data);
+                            switch (parseInt(result.status)) {
+                                case -1:
+                                    // roads.alertAIO(vue.langFunk("noUsr"));
+                                    break;
+                                case 1:
+                                    summer.closeWin();
+                                    roads.execScript("menu", "vue.formSubmitted", {
+                                        // "item_name": vue.item_name
+                                    });
+                                    break;
+                                case 0:
+                                    roads.alertAIO(0);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        });
+                    } else {
+                        roads.alertAIO("请在填选所有的选项之后提交！");
+                    }
+                } catch (e) { alert(e) }
             }
         },
         watch: {},
@@ -261,6 +333,19 @@ function initPage() {
                 // vue.getInoutbusiclasses();
                 // vue.getCustomers();
             })
+        }
+    });
+
+    var winHeight = $(window).height();
+    //获取当前页面高度
+    $(window).resize(function () {
+        var thisHeight = $(this).height();
+        if (winHeight - thisHeight > 50) {
+            //当软键盘弹出，在这里面操作
+            vue.inputStatus = 1;
+        } else {
+            //当软键盘收起，在此处操作
+            vue.inputStatus = 0;
         }
     });
 };
