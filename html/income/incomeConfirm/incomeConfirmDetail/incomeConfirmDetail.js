@@ -308,7 +308,7 @@ function initPage() {
                                     break;
                                 case 1:
                                     summer.closeWin();
-                                    roads.execScript("menu", "vue.formSubmitted", {
+                                    roads.execScript("incomeConfirm", "vue.formSubmitted", {
                                         // "item_name": vue.item_name
                                     });
                                     break;
