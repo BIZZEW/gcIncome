@@ -119,6 +119,7 @@ function initPage() {
         },
         methods: {
             fillPage0: function () {
+                alert(vue.content);
                 var parsedData = JSON.parse(vue.content);
 
                 vue.pk_org = parsedData.pk_org;
@@ -163,11 +164,13 @@ function initPage() {
                 // }
             },
             confirmChangeCustomer: function () {
+                // alert(JSON.stringify(this.$refs.customerPicker.getValues()[0]));
                 this.ordername = this.$refs.customerPicker.getValues()[0].ordername;
                 this.pk_ordercustomer = this.$refs.customerPicker.getValues()[0].pk_ordercustomer;
                 this.popupVisibleCustomer = false;
             },
             confirmChangeInoutbusiclass: function () {
+                // alert(JSON.stringify(this.$refs.inoutbusiclassPicker.getValues()[0]));
                 this.inoutbusiclass = this.$refs.inoutbusiclassPicker.getValues()[0].name;
                 this.pk_inoutbusiclass = this.$refs.inoutbusiclassPicker.getValues()[0].pk_inoutbusiclass;
 
@@ -261,20 +264,20 @@ function initPage() {
                             usercode: vue.usercode,
 
                             infodate: vue.infodate,
-                            paymethod: vue.paymethod,
+                            paymethod: vue.paymethod == "银行承兑汇票" ? 1 : 2,
                             account1: vue.account1,
                             account2: vue.account2,
                             releasemoney: vue.releasemoney,
 
                             // 客户
-                            oppunitname: vue.oppunitname,
+                            // oppunitname: vue.oppunitname,
                             pk_oppunitname: vue.pk_oppunitname,
                             // 订单客户
-                            ordername: vue.ordername,
+                            // ordername: vue.ordername,
                             pk_ordercustomer: vue.pk_ordercustomer,
 
                             // 收支项目
-                            inoutbusiclass: vue.inoutbusiclass,
+                            // inoutbusiclass: vue.inoutbusiclass,
                             pk_inoutbusiclass: vue.pk_inoutbusiclass,
 
                             // 人员PK
@@ -282,7 +285,7 @@ function initPage() {
                             // 资金计划PK
                             pk_plan: vue.pk_plan,
                             // 资金计划名称
-                            planname: vue.planname,
+                            // planname: vue.planname,
                             // 资金计划编码
                             plancode: vue.plancode,
                             // 部门PK
@@ -295,9 +298,9 @@ function initPage() {
                             // 到账通知PK
                             pk_informer: vue.pk_informer,
                         }
-                        // alert(JSON.stringify(param));
+                        alert(JSON.stringify(param));
                         roads.oldSkoolAjax(vue.loginIP + "/cusapl/createreceiv", param, "post", function (res) {
-                            // alert(JSON.stringify(res));
+                            alert(JSON.stringify(res));
                             var result = JSON.parse(res.data);
                             switch (parseInt(result.status)) {
                                 case -1:
