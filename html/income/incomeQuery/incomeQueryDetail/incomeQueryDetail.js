@@ -25,54 +25,58 @@ function initPage() {
     vue = new Vue({
         el: '#index',
         data: {
-            /*public??*/
-            nfcStatus: 0,
-            baseUrl: summer.getStorage('baseUrl'),
-            inputStatus: 0,
-            bandShow: false,
+            loginIP: summer.getStorage('loginIP'),
             turn: 0,
             dept: summer.pageParam.dept,
             module_id: summer.pageParam.module_id,
             module_title: summer.pageParam.module_title,
+            gatherbillPk: summer.pageParam.gatherbillPk,
             content: summer.pageParam.itemContent,
 
-            plateNum: "",
-            pkPoundbill: "",
-            vbillcode: "",
-            grossWeight: "",
-            materialName: "",
-            supplierName: "",
-            transporterName: "",
-            auditorName: "",
-            auditionTime: "",
-            auditionComment: "",
-            deduction: "",
-            supplierNetWeight: "",
-            auditorCode: "",
-            refundStatus: "",
-
-            containerNo: "",
+            billno: "",
+            billdate: "",
+            customer: "",
+            ordercustomer: "",
+            money: "",
+            project: "",
+            paymethod: "",
         },
         methods: {
             fillPage0: function () {
-                var parsedData = JSON.parse(vue.content);
+                var param = {
+                    pk_gatherbill: vue.gatherbillPk,
+                };
 
-                vue.plateNum = parsedData.vvehicle;
-                vue.pkPoundbill = parsedData.pk_poundbill;
-                vue.vbillcode = parsedData.vbillcode;
-                vue.grossWeight = parsedData.ngross;
-                vue.materialName = parsedData.materialname;
-                vue.supplierName = parsedData.suppliername;
-                vue.transporterName = parsedData.trname;
-                vue.auditorName = parsedData.ysrname;
-                vue.auditionTime = parsedData.ysdate;
-                vue.auditionComment = parsedData.ysyj;
-                vue.deduction = parsedData.nabatebright;
-                vue.supplierNetWeight = parsedData.gfjz;
-                vue.auditor = parsedData.usercode;
-                vue.refundStatus = parsedData.refundStatus;
+                var url = vue.loginIP + "/cusapl/receivdetail";
 
-                vue.containerNo = parsedData.containerno;
+                roads.oldSkoolAjax(url, param, "post", function (res) {
+                    // alert(JSON.stringify(res));
+                    var result = JSON.parse(res.data);
+                    switch (result.status) {
+                        case -1:
+                            roads.alertAIO(result.message);
+                            break;
+                        case 0:
+                            roads.alertAIO(result.message);
+                            break;
+                        case 1:
+                            var parsedData = JSON.parse(result.data);
+
+                            vue.billno = parsedData.billno;
+                            vue.billdate = parsedData.billdate;
+                            vue.customer = parsedData.customer;
+                            vue.ordercustomer = parsedData.ordercustomer;
+                            vue.money = parsedData.money;
+                            vue.project = parsedData.project;
+                            vue.paymethod = parsedData.paymethod;
+                            break;
+                        case 2:
+                            roads.alertAIO(result.message);
+                            break;
+                        default:
+                            break;
+                    }
+                });
             },
             // 返回
             goback: function () {

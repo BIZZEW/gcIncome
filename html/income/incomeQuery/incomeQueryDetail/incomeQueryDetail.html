@@ -15,9 +15,11 @@
     <script type="text/javascript" src="../../../../js/jquery.min.js"></script>
     <script type="text/javascript" src="../../../../js/summer.js"></script>
     <script type="text/javascript" src="../../../../js/Frameworks/iuapmobile.frameworks.ui.js"></script>
-    <script type="text/javascript" src="../../../../node_modules/vue/dist/vue.min.js"></script>
+    <!-- <script type="text/javascript" src="../../../../node_modules/vue/dist/vue.min.js"></script> -->
+    <script type="text/javascript" src="../../../../js/vue.js"></script>
     <script type="text/javascript" src="../../../../js/mintui.js"></script>
     <script type="text/javascript" src="../../../util/util.js"></script>
+    <script type="text/javascript" src="../../../util/lang/lang.js"></script>
     <script type="text/javascript" src="../../../../js/her.min.js"></script>
     <script type="text/javascript" src="incomeQueryDetail.js"></script>
 </head>
@@ -34,38 +36,38 @@
         <div class="um-content">
             <div class="ultra-item">
                 <label class="ultra-label">单据号</label>
-                <div class="ultra-content"><input placeholder="单据号" type="text" v-model="plateNum" readonly></div>
+                <div class="ultra-content"><input placeholder="单据号" type="text" v-model="billno" readonly></div>
             </div>
 
             <div class="ultra-item">
                 <label class="ultra-label">日期</label>
-                <div class="ultra-content"><input placeholder="日期" type="text" v-model="supplierName" readonly></div>
+                <div class="ultra-content"><input placeholder="日期" type="text" v-model="billdate" readonly></div>
             </div>
 
             <div class="ultra-item">
                 <label class="ultra-label">客户</label>
-                <div class="ultra-content"><input placeholder="客户" type="text" v-model="materialName" readonly></div>
+                <div class="ultra-content"><input placeholder="客户" type="text" v-model="customer" readonly></div>
             </div>
 
             <div class="ultra-item">
                 <label class="ultra-label">订单客户</label>
-                <div class="ultra-content"><input placeholder="订单客户" type="text" v-model="grossWeight" readonly></div>
+                <div class="ultra-content"><input placeholder="订单客户" type="text" v-model="ordercustomer" readonly></div>
             </div>
 
             <div class="ultra-item">
                 <label class="ultra-label">金额</label>
-                <div class="ultra-content"><input placeholder="金额" type="number" v-model="deduction" readonly></div>
+                <div class="ultra-content"><input placeholder="金额" type="number" v-model="money" readonly></div>
             </div>
 
             <div class="ultra-item">
                 <label class="ultra-label">收支项目</label>
-                <div class="ultra-content"><input placeholder="收支项目" type="number" v-model="supplierNetWeight" readonly>
+                <div class="ultra-content"><input placeholder="收支项目" type="number" v-model="project" readonly>
                 </div>
             </div>
 
             <div class="ultra-item">
                 <label class="ultra-label">结算方式</label>
-                <div class="ultra-content"><input placeholder="结算方式" type="text" v-model="containerNo" readonly>
+                <div class="ultra-content"><input placeholder="结算方式" type="text" v-model="paymethod" readonly>
                 </div>
             </div>
         </div>

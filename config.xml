@@ -2,7 +2,7 @@
 
 <application> 
   <app_start>html/index.html</app_start>  
-  <app_name>金圆到账通知</app_name>  
+  <app_name>金圆收款单APP</app_name>  
   <project_name>goldencircle</project_name>  
   <package_name>com.yonyou.goldencircle</package_name>  
   <frame_name>summer-um</frame_name>  

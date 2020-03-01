@@ -49,9 +49,9 @@
                 </div>
 
                 <div class="ultra-item" style="border-bottom: 1px solid #fafafa;">
-                    <label class="ultra-label">客户/订单客户</label>
+                    <label class="ultra-label">客户</label>
                     <div class="ultra-content">
-                        <input type="text" class="double-percent" v-model="client" readonly>
+                        <input type="text" class="double-percent" v-model="client">
                     </div>
                 </div>
 
@@ -72,27 +72,27 @@
                 <div class="icon iconfont icon-kong1"></div>
             </div>
 
-            <div id="ultra-scroll-list" class="ultra-scroll-list" @scroll="onScroll" style="margin: 275px 0 0 0;">
+            <div id="ultra-scroll-list" class="ultra-scroll-list" @scroll="onScroll" style="margin: 270px 0 0 0;">
                 <div class="ultra-list-item" v-for="(item, index) in logList" @click="goDetail(index)">
                     <div class="log-item-inner">
                         <div class="log-item-row">
-                            <div class="log-item-content" v-text='"单\xa0\xa0据\xa0\xa0号:\xa0\xa0"+item.vbillcode'></div>
+                            <div class="log-item-content" v-text='"单\xa0\xa0据\xa0\xa0号:\xa0\xa0"+item.billno'></div>
                         </div>
                         <div class="log-item-row">
-                            <div class="log-item-content" v-text='"日\xa0\xa0\xa0\xa0\xa0\xa0\xa0期:\xa0\xa0" +item.vvehicle'>
+                            <div class="log-item-content" v-text='"日\xa0\xa0\xa0\xa0\xa0\xa0\xa0期:\xa0\xa0" +item.billdate'>
                             </div>
                         </div>
                         <div class="log-item-row">
-                            <div class="log-item-content" v-text='"客\xa0\xa0\xa0\xa0\xa0\xa0\xa0户:\xa0\xa0" +item.materialname'>
+                            <div class="log-item-content" v-text='"客\xa0\xa0\xa0\xa0\xa0\xa0\xa0户:\xa0\xa0" +item.customer'>
                             </div>
                         </div>
                         <div class="log-item-row">
-                            <div class="log-item-content" v-text='"金\xa0\xa0\xa0\xa0\xa0\xa0\xa0额:\xa0\xa0" +item.ysdate'>
+                            <div class="log-item-content" v-text='"金\xa0\xa0\xa0\xa0\xa0\xa0\xa0额:\xa0\xa0" +item.money'>
                             </div>
                         </div>
                     </div>
-                    <div class="item-id" v-text="index+1"></div>
-                    <div class="item-detail-tag">详情</div>
+                    <!-- <div class="item-id" v-text="index+1"></div>
+                    <div class="item-detail-tag">详情</div> -->
                 </div>
                 <div id="spinner" :class="(spinning ? ('spinner spinning') : ('spinner'))" v-if="(logList.length!=0) && endFlag && isLoading" v-text="loadText" @click="loadMore()"></div>
             </div>
