@@ -119,7 +119,7 @@ function initPage() {
         },
         methods: {
             fillPage0: function () {
-                alert(vue.content);
+                // alert(vue.content);
                 var parsedData = JSON.parse(vue.content);
 
                 vue.pk_org = parsedData.pk_org;
@@ -298,13 +298,13 @@ function initPage() {
                             // 到账通知PK
                             pk_informer: vue.pk_informer,
                         }
-                        alert(JSON.stringify(param));
+                        // alert(JSON.stringify(param));
                         roads.oldSkoolAjax(vue.loginIP + "/cusapl/createreceiv", param, "post", function (res) {
-                            alert(JSON.stringify(res));
+                            // alert(JSON.stringify(res));
                             var result = JSON.parse(res.data);
                             switch (parseInt(result.status)) {
                                 case -1:
-                                    // roads.alertAIO(vue.langFunk("noUsr"));
+                                    roads.alertAIO(result.message);
                                     break;
                                 case 1:
                                     summer.closeWin();
