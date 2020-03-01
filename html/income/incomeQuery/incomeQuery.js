@@ -44,7 +44,6 @@ function initPage() {
             logList: [],
             // logList: [{}, {}, {}, {}, {}, {}, {}, {}],
 
-
             //分页使用
             isLoading: false,
             //条目高度值
@@ -101,8 +100,6 @@ function initPage() {
                         "usercode": vue.usercode,
                         "starttime": vue.beginDate + " 00:00:00",
                         "endtime": vue.stopDate + " 23:59:59",
-                        // "starttime": vue.beginDate,
-                        // "endtime": vue.stopDate,
                         "customername": searchText,
                         "currentPage": vue.currentPage
                     };
@@ -161,8 +158,6 @@ function initPage() {
                         "usercode": vue.usercode,
                         "starttime": vue.beginDate + " 00:00:00",
                         "endtime": vue.stopDate + " 23:59:59",
-                        // "starttime": vue.beginDate,
-                        // "endtime": vue.stopDate,
                         "customername": vue.client,
                         "currentPage": (vue.currentPage + 1),
                     };
