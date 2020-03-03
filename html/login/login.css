@@ -65,23 +65,44 @@ body {
 	left: 0;
 }
 
-.userList, .companyList {
-	display: inline-block;
+.userList{
+	/* display: inline-block; */
 	width: 100%;
-	max-height: 60% !important;
+	/* max-height: 60% !important; */
+	height:60% !important;
+	/* height: fit-content; */
 	overflow-y: scroll;
+	/* position: fixed; */
+	-webkit-overflow-scrolling: touch;
 	right: 0 !important;
 	z-index: 100;
 	left: 30%;
 	border-radius: 0;
 	box-shadow: 0px 5px 11px rgba(0, 0, 0, 0.49);
 	background: white;
+	/* pointer-events: all; */
 }
 
-.user-item {}
+.listWrapper{
+	height: fit-content;
+	/* overflow-y: scroll;
+	-webkit-overflow-scrolling: touch; */
+}
+
+/* .userList:after {
+    min-height: 101%
+} */
+
+.user-item {
+	pointer-events: all;
+}
 
 .user-item-inner {
 	text-align: center;
+}
+
+.ultra-list-item {
+    border-radius: 0;
 }
 
 .ultra-tab-bar {
@@ -275,7 +296,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .pen-outer:active {
-	opacity: .7;
+	/* opacity: .7; */
 }
 
 /* Styles for our pulldown menus */
@@ -304,7 +325,7 @@ input:focus, textarea:focus, select:focus {
 	/* height: 100%; */
 	right: 0 !important;
 	display: none;
-	z-index: 100;
+	z-index: 101;
 	left: 25%;
 	position: fixed;
 	top: 46.5% !important;

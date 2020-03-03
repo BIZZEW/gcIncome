@@ -36,7 +36,7 @@
                     <div class="um-label um-box-justify">
                         <div class="label-title" v-text="langFunk('usernameLabel')" @click="secretDoor2(3)"></div>
                         <div class="label-content">
-                            <input id="usrname" type="text" v-model="usrname" placeholder="" disabled=""
+                            <input id="usrname" type="text" v-model="usrname" placeholder="" readonly
                                 @click="selectUsrname()" />
 
                             <div class="pen-outer">
@@ -44,12 +44,15 @@
                                     <div class="pulldown-toggle pulldown-toggle-round">
                                         <div class="lines"></div>
                                     </div>
+                                    <!-- @touchend="userItemClick(index,$event)" -->
                                     <div class="pulldown-menu">
                                         <div class="userList">
-                                            <div class="user-item ultra-list-item" @click="userItemClick(index)"
+                                            <!-- <div class="listWrapper"> -->
+                                            <div class="user-item ultra-list-item" @click="userItemClick(index,$event)"
                                                 v-for="(item, index) in userList">
                                                 <div class="user-item-inner" v-text="item.username"></div>
                                             </div>
+                                            <!-- </div> -->
                                         </div>
                                     </div>
                                 </div>

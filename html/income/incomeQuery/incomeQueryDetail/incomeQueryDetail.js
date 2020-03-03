@@ -40,6 +40,8 @@ function initPage() {
             money: "",
             project: "",
             paymethod: "",
+            account1: "",
+            account2: "",
         },
         methods: {
             fillPage0: function () {
@@ -69,6 +71,8 @@ function initPage() {
                             vue.money = parsedData.money;
                             vue.project = parsedData.project;
                             vue.paymethod = parsedData.paymethod;
+                            vue.account1 = parsedData.account1;
+                            vue.account2 = parsedData.account2;
                             break;
                         case 2:
                             roads.alertAIO(result.message);

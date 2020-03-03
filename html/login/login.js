@@ -53,6 +53,7 @@ function initPage() {
             //输入的搜索词
             coInput: "",
             userList: [],
+            // userList: [{ username: "11" }, { username: "22" }, { username: "33" }, { username: "44" }, { username: "55" }],
             coList: [],
             availableModules: "",
             // NCIP: ""
@@ -93,9 +94,9 @@ function initPage() {
                     if (vue.loginStatus == 1 || vue.loginStatus == "1")
                         vue.goMenu("sale");
                 }, 1000);
-                
+
                 var loginIPStore = summer.getStorage('loginIP');
-                
+
                 if (!isEmpty(loginIPStore))
                     this.loginIP = loginIPStore;
 
@@ -120,7 +121,8 @@ function initPage() {
                     "availableModules": this.availableModules
                 });
             },
-            userItemClick: function (index) {
+            userItemClick: function (index, e) {
+                e.preventDefault();
                 var item = this.userList[index];
                 this.usrname = item.username;
                 this.usrcode = item.usercode;
@@ -255,9 +257,12 @@ $(document).on('click', '.pen-outer', function (event) {
         vue.getUserList();
         if ($lastOpened) {
             $lastOpened.removeClass('open');
+            // document.getElementsByClassName('pulldown-menu')[0].removeEventListener('touchmove', this.handler, { passive: false })// 打开默认事件
+            // document.getElementsByClassName('pulldown')[0].removeEventListener('touchmove', this.handler, { passive: false })// 打开默认事件
         }
         el.addClass('open');
         $lastOpened = el;
+        // document.getElementsByClassName('body')[0].addEventListener('touchmove', this.handler, { passive: false })// 阻止默认事件
     }
 });
 

@@ -61,7 +61,7 @@
 
             <div class="ultra-item">
                 <label class="ultra-label">收支项目</label>
-                <div class="ultra-content"><input placeholder="收支项目" type="number" v-model="project" readonly>
+                <div class="ultra-content"><input placeholder="收支项目" type="text" v-model="project" readonly>
                 </div>
             </div>
 
@@ -70,6 +70,19 @@
                 <div class="ultra-content"><input placeholder="结算方式" type="text" v-model="paymethod" readonly>
                 </div>
             </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">票据号/付款银行账户</label>
+                <div class="ultra-content"><input placeholder="票据号/付款银行账户" type="text" v-model="account1" readonly>
+                </div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">收款银行账户</label>
+                <div class="ultra-content"><input placeholder="收款银行账户" type="text" v-model="account2" readonly>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>
