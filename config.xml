@@ -4,7 +4,7 @@
   <app_start>html/index.html</app_start>  
   <app_name>金圆收款单APP</app_name>  
   <project_name>goldencircle</project_name>  
-  <package_name>com.yonyou.goldencircle</package_name>  
+  <package_name>com.yonyou.goldencirclereceipt</package_name>  
   <frame_name>summer-um</frame_name>  
   <theme>blue</theme>  
   <icon relativePath="css/themes/default/app">app</icon>  

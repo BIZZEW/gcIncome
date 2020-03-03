@@ -95,7 +95,9 @@ window.roads = (function (win, r) {
             summer.post(url2, param, {
                 // Authorization: "OAuth2: token"
             }, function (ret) {
-                if (ret.status > 0)
+                var result = JSON.parse(ret.data);
+
+                if (result.status > 0)
                     r.ajaxKernel(url, data, type, successCallback, functionName);
                 else {
                     her.loadedSpring();
