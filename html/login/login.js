@@ -36,9 +36,9 @@ function initPage() {
             turn2: 0,
             dept: "",
             ip: "",
-            usrname: "",
+            // usrname: "",
             usrcode: "",
-            usrtype: "",
+            // usrtype: "",
             password: "",
             showPD: false,
             remeberPD: 0,
@@ -101,14 +101,14 @@ function initPage() {
                     this.loginIP = loginIPStore;
 
                 var remeberPD = summer.getStorage('remeberPD');
-                var usrname = summer.getStorage('usrname');
+                // var usrname = summer.getStorage('usrname');
                 var usrcode = summer.getStorage('usrcode');
                 var password = summer.getStorage('password');
 
                 if (!isEmpty(remeberPD)) {
                     this.remeberPD = parseInt(remeberPD);
                     if (this.remeberPD) {
-                        this.usrname = (!isEmpty(usrname)) ? usrname : "";
+                        // this.usrname = (!isEmpty(usrname)) ? usrname : "";
                         this.usrcode = (!isEmpty(usrcode)) ? usrcode : "";
                         this.password = (!isEmpty(password)) ? password : "";
                     }
@@ -117,26 +117,27 @@ function initPage() {
             goMenu: function (tag) {
                 roads.openWinSpecial("menu", "menu", "menu.html", {
                     "dept": tag,
-                    "usrname": this.usrname,
+                    // "usrname": this.usrname,
+                    "usrcode": this.usrcode,
                     "availableModules": this.availableModules
                 });
             },
             userItemClick: function (index, e) {
                 e.preventDefault();
                 var item = this.userList[index];
-                this.usrname = item.username;
+                // this.usrname = item.username;
                 this.usrcode = item.usercode;
-                this.usrtype = item.logo;
+                // this.usrtype = item.logo;
             },
 
             // 提交表单
             login: function () {
                 // vue.loginStatus = 1;
 
-                if (!isEmpty(this.usrname) && !isEmpty(this.password)) {
+                if (!isEmpty(this.usrcode) && !isEmpty(this.password)) {
                     //记住密码逻辑
                     summer.setStorage('remeberPD', (this.remeberPD) ? "1" : "0");
-                    summer.setStorage('usrname', this.usrname);
+                    // summer.setStorage('usrname', this.usrname);
                     summer.setStorage('usrcode', this.usrcode);
                     summer.setStorage('password', this.password);
                     summer.setStorage('loginIP', vue.loginIP);

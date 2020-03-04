@@ -191,7 +191,7 @@ input:focus, textarea:focus, select:focus {
 	width: 75%;
 }
 
-.icon-eye, .icon-closeye, .icon-pulldown {
+.icon-eye, .icon-closeye, .icon-pulldown, .icon-portrait {
 	color: #6f6f6f;
 	position: absolute;
 	top: 0;
