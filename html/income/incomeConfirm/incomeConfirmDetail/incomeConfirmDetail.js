@@ -260,6 +260,9 @@ function initPage() {
             submitForm: function () {
                 try {
                     if (vue.pk_inoutbusiclass) {
+                        var searchText = vue.inoutbusiclass;
+                        searchText = encodeURI(searchText);
+
                         var param = {
                             usercode: vue.usercode,
 
@@ -277,7 +280,7 @@ function initPage() {
                             pk_ordercustomer: vue.pk_ordercustomer,
 
                             // 收支项目
-                            // inoutbusiclass: vue.inoutbusiclass,
+                            inoutbusiclass: searchText,
                             pk_inoutbusiclass: vue.pk_inoutbusiclass,
 
                             // 人员PK

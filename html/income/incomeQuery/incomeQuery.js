@@ -154,13 +154,17 @@ function initPage() {
                     vue.spinning = true;
                     vue.loadText = "正在加载更多";
 
+                    var searchText = vue.client;
+                    searchText = encodeURI(searchText);
+
                     var param = {
                         "usercode": vue.usercode,
                         "starttime": vue.beginDate + " 00:00:00",
                         "endtime": vue.stopDate + " 23:59:59",
-                        "customername": vue.client,
+                        "customername": searchText,
                         "currentPage": (vue.currentPage + 1),
                     };
+                    
                     var url = vue.loginIP + "/cusapl/collectlist";
 
                     window.cordovaHTTP.settings = { timeout: 8000 };
