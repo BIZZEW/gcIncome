@@ -166,12 +166,13 @@ function initPage() {
                                     "text": vue.langFunk("loginSucceeded"),
                                     "duration": 1000
                                 });
+                                var data = JSON.parse(result.data);
+                                summer.setStorage('usrname', data.user_name);
+                                vue.usrname = data.user_name;
                                 //记录登录状态
                                 summer.setStorage('sessionId', result.sessionid);
-                                summer.setStorage('usrname', result.user_name);
                                 summer.setStorage('loginStatus', result.status);
                                 vue.sessionId = result.sessionid;
-                                vue.usrname = result.user_name;
                                 vue.loginStatus = result.status;
                                 break;
                             case 2:
