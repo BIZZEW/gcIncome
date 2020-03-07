@@ -57,7 +57,7 @@ window.roads = (function (win, r) {
     };
 
     r.ajaxKernel = function (url, param, type, successCallback, functionName) {
-        window.cordovaHTTP.settings = { timeout: 8000 };
+        window.cordovaHTTP.settings = { timeout: 40000 };
         summer.ajax({
             type: type,
             url: url,

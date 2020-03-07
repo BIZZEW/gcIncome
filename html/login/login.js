@@ -36,7 +36,7 @@ function initPage() {
             turn2: 0,
             dept: "",
             ip: "",
-            // usrname: "",
+            usrname: "",
             usrcode: "",
             // usrtype: "",
             password: "",
@@ -117,7 +117,7 @@ function initPage() {
             goMenu: function (tag) {
                 roads.openWinSpecial("menu", "menu", "menu.html", {
                     "dept": tag,
-                    // "usrname": this.usrname,
+                    "usrname": this.usrname,
                     "usrcode": this.usrcode,
                     "availableModules": this.availableModules
                 });
@@ -168,8 +168,10 @@ function initPage() {
                                 });
                                 //记录登录状态
                                 summer.setStorage('sessionId', result.sessionid);
+                                summer.setStorage('usrname', result.user_name);
                                 summer.setStorage('loginStatus', result.status);
                                 vue.sessionId = result.sessionid;
+                                vue.usrname = result.user_name;
                                 vue.loginStatus = result.status;
                                 break;
                             case 2:
