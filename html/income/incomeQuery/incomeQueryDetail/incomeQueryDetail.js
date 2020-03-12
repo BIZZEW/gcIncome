@@ -42,6 +42,7 @@ function initPage() {
             paymethod: "",
             account1: "",
             account2: "",
+            discountrate: "",
         },
         methods: {
             fillPage0: function () {
@@ -73,6 +74,7 @@ function initPage() {
                             vue.paymethod = parsedData.paymethod;
                             vue.account1 = parsedData.account1;
                             vue.account2 = parsedData.account2;
+                            vue.discountrate = parsedData.discountrate;
                             break;
                         case 2:
                             roads.alertAIO(result.message);
