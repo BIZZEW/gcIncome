@@ -168,6 +168,7 @@ function initPage() {
                                 });
                                 var data = JSON.parse(result.data);
                                 summer.setStorage('usrname', data.user_name);
+                                summer.setStorage('password2', vue.password);
                                 vue.usrname = data.user_name;
                                 //记录登录状态
                                 summer.setStorage('sessionId', result.sessionid);

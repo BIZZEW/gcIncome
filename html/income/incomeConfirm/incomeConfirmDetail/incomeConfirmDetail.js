@@ -83,6 +83,8 @@ function initPage() {
             account1: "",
             account2: "",
             releasemoney: "",
+            pk_informerrelease: "",
+            password: summer.getStorage('password2'),
 
             // 客户
             oppunitname: "",
@@ -137,6 +139,7 @@ function initPage() {
                 vue.account1 = parsedData.account1;
                 vue.account2 = parsedData.account2;
                 vue.releasemoney = parsedData.releasemoney;
+                vue.pk_informerrelease = parsedData.pk_informerrelease;
 
                 vue.getCustomers();
                 vue.getInoutbusiclasses();
@@ -271,6 +274,8 @@ function initPage() {
                             account1: vue.account1,
                             account2: vue.account2,
                             releasemoney: vue.releasemoney,
+                            pk_informerrelease: vue.pk_informerrelease,
+                            password: vue.password,
 
                             // 客户
                             // oppunitname: vue.oppunitname,
