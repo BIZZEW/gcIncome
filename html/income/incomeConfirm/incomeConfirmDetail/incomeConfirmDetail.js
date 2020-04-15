@@ -225,40 +225,48 @@ function initPage() {
                 }
             },
             getCustomers: function () {
-                var param = {
-                    pk_oppunitname: vue.pk_oppunitname,
-                    oppunitname: vue.oppunitname
-                }
-                roads.oldSkoolAjax(vue.loginIP + "/service/refordercustomer", param, "post", function (res) {
-                    var result = JSON.parse(res.data);
-                    switch (parseInt(result.status)) {
-                        case -1:
-                            roads.alertAIO(result.message);
-                            break;
-                        case 0:
-                            roads.alertAIO(result.message);
-                            break;
-                        case 1:
-                            var customerslist = eval(result.data);
-                            // 把客户也插入订单客户的下拉选项列表里
-                            customerslist.push({
-                                pk_ordercustomer: vue.pk_oppunitname,
-                                ordername: vue.oppunitname
-                            });
+                try {
+                    var searchText = vue.oppunitname;
+                    searchText = encodeURI(searchText);
 
-                            vue.customers = [
-                                {
-                                    values: customerslist
-                                }
-                            ];
-                            break;
-                        case 2:
-                            roads.alertAIO(result.message);
-                            break;
-                        default:
-                            break;
+                    var param = {
+                        pk_oppunitname: vue.pk_oppunitname,
+                        oppunitname: searchText
                     }
-                });
+
+                    roads.oldSkoolAjax(vue.loginIP + "/service/refordercustomer", param, "post", function (res) {
+                        var result = JSON.parse(res.data);
+                        switch (parseInt(result.status)) {
+                            case -1:
+                                roads.alertAIO(result.message);
+                                break;
+                            case 0:
+                                roads.alertAIO(result.message);
+                                break;
+                            case 1:
+                                var customerslist = eval(result.data);
+                                // 把客户也插入订单客户的下拉选项列表里
+                                customerslist.push({
+                                    pk_ordercustomer: vue.pk_oppunitname,
+                                    ordername: vue.oppunitname
+                                });
+
+                                vue.customers = [
+                                    {
+                                        values: customerslist
+                                    }
+                                ];
+                                break;
+                            case 2:
+                                roads.alertAIO(result.message);
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                } catch (e) {
+                    alert(e)
+                }
             },
             submitForm: function () {
                 try {
