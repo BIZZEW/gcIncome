@@ -79,7 +79,7 @@ window.roads = (function (win, r) {
         var functionName = url.split('/').pop();
         //除去“登录”和“获取用户列表”外的方法都要判断登录状态有效性
         if (functionName != "login" && functionName != "userList" && functionName != "userlist" && functionName != "userlogin") {
-            var url2 = summer.getStorage('loginIP') + "/cusapl/checkstatus";
+            var url2 = summer.getStorage('loginIP') + "/service/checkstatus";
 
             var usrcode = summer.getStorage('usrcode');
             var sessionId = summer.getStorage('sessionId');

@@ -50,7 +50,7 @@ function initPage() {
                     pk_gatherbill: vue.gatherbillPk,
                 };
 
-                var url = vue.loginIP + "/cusapl/receivdetail";
+                var url = vue.loginIP + "/service/receivdetail";
 
                 roads.oldSkoolAjax(url, param, "post", function (res) {
                     // alert(JSON.stringify(res));

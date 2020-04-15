@@ -79,7 +79,7 @@ function initPage() {
                     "usercode": vue.usercode,
                 };
 
-                var url = vue.loginIP + "/cusapl/receivlist";
+                var url = vue.loginIP + "/service/receivlist";
 
                 roads.oldSkoolAjax(url, param, "post", function (res) {
                     var result = JSON.parse(res.data);

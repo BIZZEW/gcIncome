@@ -104,7 +104,7 @@ function initPage() {
                         "currentPage": vue.currentPage
                     };
 
-                    var url = vue.loginIP + "/cusapl/collectlist";
+                    var url = vue.loginIP + "/service/collectlist";
 
                     roads.oldSkoolAjax(url, param, "post", function (res) {
                         var result = JSON.parse(res.data);
@@ -165,7 +165,7 @@ function initPage() {
                         "currentPage": (vue.currentPage + 1),
                     };
                     
-                    var url = vue.loginIP + "/cusapl/collectlist";
+                    var url = vue.loginIP + "/service/collectlist";
 
                     window.cordovaHTTP.settings = { timeout: 8000 };
 

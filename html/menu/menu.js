@@ -119,7 +119,7 @@ function initPage() {
             },
             checkNet: function () {
                 var param = {}
-                roads.oldSkoolAjax(vue.baseUrlLogin + "/cusapl/validate", param, "get", function (data) {
+                roads.oldSkoolAjax(vue.baseUrlLogin + "/service/validate", param, "get", function (data) {
                     if (data.status)
                         vue.netStatus = 1;
                 });

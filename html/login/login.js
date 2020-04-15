@@ -149,7 +149,7 @@ function initPage() {
                         "usercode": vue.usrcode,
                         "password": vue.password
                     };
-                    roads.oldSkoolAjax(vue.loginIP + "/cusapl/userlogin", param, "post", function (res) {
+                    roads.oldSkoolAjax(vue.loginIP + "/service/userlogin", param, "post", function (res) {
                         var result = JSON.parse(res.data);
 
                         switch (result.status) {
@@ -197,7 +197,7 @@ function initPage() {
                         "lang": lang,
                         "flag": "0"
                     }
-                    roads.oldSkoolAjax(vue.loginIP + "/cusapl/userlist", param, "get", function (res) {
+                    roads.oldSkoolAjax(vue.loginIP + "/service/userlist", param, "get", function (res) {
                         var result = JSON.parse(res.data);
                         switch (parseInt(result.status)) {
                             case -1:

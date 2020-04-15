@@ -198,7 +198,7 @@ function initPage() {
                         pk_org: vue.pk_org,
                         usercode: vue.usercode,
                     }
-                    roads.oldSkoolAjax(vue.loginIP + "/cusapl/refproject", param, "post", function (res) {
+                    roads.oldSkoolAjax(vue.loginIP + "/service/refproject", param, "post", function (res) {
                         var result = JSON.parse(res.data);
                         switch (result.status) {
                             case -1:
@@ -229,7 +229,7 @@ function initPage() {
                     pk_oppunitname: vue.pk_oppunitname,
                     oppunitname: vue.oppunitname
                 }
-                roads.oldSkoolAjax(vue.loginIP + "/cusapl/refordercustomer", param, "post", function (res) {
+                roads.oldSkoolAjax(vue.loginIP + "/service/refordercustomer", param, "post", function (res) {
                     var result = JSON.parse(res.data);
                     switch (parseInt(result.status)) {
                         case -1:
@@ -307,7 +307,7 @@ function initPage() {
                             pk_informer: vue.pk_informer,
                         }
                         // alert(JSON.stringify(param));
-                        roads.oldSkoolAjax(vue.loginIP + "/cusapl/createreceiv", param, "post", function (res) {
+                        roads.oldSkoolAjax(vue.loginIP + "/service/createreceiv", param, "post", function (res) {
                             // alert(JSON.stringify(res));
                             var result = JSON.parse(res.data);
                             switch (parseInt(result.status)) {
