@@ -47,75 +47,43 @@ function initPage() {
         methods: {
             //检查更新
             checkUpdate: function () {
-                var t = setTimeout(function () {
-                    var versionInfo = summer.getAppVersion();
-                    var version = JSON.parse(versionInfo);
-                    var NCIPTmp = summer.getStorage('NCIP');
-                    var NCIP = isEmpty(NCIPTmp) ? "http://192.168.10.166:80" : NCIPTmp;
-                    var tmpLang = summer.getStorage('lang');
-                    var lang = isEmpty(tmpLang) ? "1" : tmpLang;
-                    var param = {
-                        "lang": lang,
-                        "version": -999,
-                        "flag": 1 //代表销售
-                    };
-                    var soapXML = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:mob='http://webservice.dispatcher.pu.itf.nc/MobilePhoneUpdatesAutomatic'><soapenv:Header/><soapenv:Body><mob:getFilePath><param>" + JSON.stringify(param) + "</param></mob:getFilePath></soapenv:Body></soapenv:Envelope>";
-                    $.ajax({
-                        url: NCIP + "/uapws/service/nc.itf.pu.dispatcher.webservice.MobilePhoneUpdatesAutomatic",
-                        type: "POST",
-                        dataType: "xml",
-                        contentType: "text/xml; charset=utf-8",
-                        data: soapXML,
-                        async: true,
-                        timeout: 5000,
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("User-Agent", "headertest");
-                        },
-                        success: function (data) {
-                            var result = JSON.parse($(data).find("return").html());
-                            switch (result.status) {
-                                case -1:
-                                    //roads.alertAIO();
-                                    break;
-                                case 0:
-                                    //roads.alertAIO("抱歉，操作异常！");
-                                    //roads.alertAIO(result.message);
-                                    break;
-                                case 1:
-                                    var versionInfo = result.version_detail;
-                                    if (parseInt(versionInfo.version) > version.versionCode) {
-                                        UM.confirm({
-                                            title: vue.langFunk("updateVersion") + versionInfo.version_name + "？",
-                                            text: vue.langFunk("updateContent") + versionInfo.update_content,
-                                            btnText: [vue.langFunk("cancelBtntext"), vue.langFunk("confirmBtntext")],
-                                            overlay: true,
-                                            duration: 2000,
-                                            cancle: function () { },
-                                            ok: function (data) {
-                                                var params = ["android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_PHONE_STATE"];
-                                                summer.getPermission(params, function (args) {
-                                                    clearTimeout(t);
-                                                    summer.upgradeApp({
-                                                        url: versionInfo.update_path
-                                                    }, function () { }, function () { });
-                                                }, function (args) {
-                                                    alert(args);
-                                                });
-                                            }
-                                        });
-                                    }
-                                    break;
-                                case 2:
-                                    //roads.alertAIO();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        },
-                        error: function (err) { },
-                        complete: function (XMLHttpRequest, status) { }
-                    });
-                }, 1000);
+                var info = summer.getSysInfo();
+                var appKey = (info.systemType == "android") ? "0dd61973cfdc6a63781232d9249500c4" : "dcdaddc8ee5a0770ac203e757faa0d49";
+                var accountkey = "706dea0e787c151c278696fa885e38c4";
+                var versionInfo = summer.getAppVersion();
+                var version = JSON.parse(versionInfo);
+                var url = "http://www.pgyer.com/apiv2/app/check?_api_key=" + accountkey + "&appKey=" + appKey + "&buildVersion=" + version.versionName;
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    async: true,
+                    timeout: 5000,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("User-Agent", "headertest");
+                    },
+                    success: function (data) {
+                        if (data.data.buildHaveNewVersion) {
+                            UM.confirm({
+                                title: "检测到新版本：" + data.data.buildVersion,
+                                text: "更新内容：" + data.data.buildUpdateDescription,
+                                btnText: ["暂不安装", "安装更新"],
+                                overlay: true,
+                                duration: 2000,
+                                cancle: function () { },
+                                ok: function () {
+                                    summer.openWebView({
+                                        url: data.data.downloadURL
+                                    });
+                                }
+                            });
+                        }
+                    },
+                    error: function (err) { },
+                    complete: function (XMLHttpRequest, status) { }
+                });
             },
             checkNet: function () {
                 var param = {}
@@ -238,7 +206,7 @@ function initPage() {
                 this.checkNet();
                 this.initSlider();
                 this.initModules();
-                // this.checkUpdate();
+                this.checkUpdate();
             })
         }
     });
