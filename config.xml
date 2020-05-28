@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <application> 
-  <app_start>html/menu/menu.html</app_start>  
+  <app_start>html/index.html</app_start>  
   <app_name>金圆收款</app_name>  
   <project_name>goldencircle</project_name>  
   <package_name>com.yonyou.goldencirclereceipt</package_name>  
   <frame_name>summer-um</frame_name>  
   <theme>blue</theme>  
   <icon relativePath="css/themes/default/app">app</icon>  
-  <versionCode>104</versionCode>  
-  <versionBuild>1.0.4</versionBuild>  
-  <versionName>1.0.4</versionName>  
+  <versionCode>106</versionCode>  
+  <versionBuild>1.0.6</versionBuild>  
+  <versionName>1.0.6</versionName>  
   <orientation>portrait</orientation>  
   <showLaunch>false</showLaunch>  
   <permission id="android.permission.INTERNET"/>  
   <statusBarStyle>light</statusBarStyle>  
-  <fullScreen>true</fullScreen>  
+  <fullScreen>false</fullScreen>  
   <statusBarAppearance>false</statusBarAppearance>  
   <windowSoftInputMode>stateHidden|adjustPan</windowSoftInputMode>  
   <import id="cordova-plugin-compat" type="web" ref="cordova"/>  
