@@ -56,6 +56,11 @@
             </div>
 
             <div class="ultra-item">
+                <label class="ultra-label">汇款人</label>
+                <div class="ultra-content"><input placeholder="汇款人" type="text" v-model="remitter" readonly></div>
+            </div>
+
+            <div class="ultra-item">
                 <label class="ultra-label">票据号/付款银行账号</label>
                 <div class="ultra-content"><input placeholder="票据号/付款银行账号" type="text" v-model="account1" readonly>
                 </div>
@@ -70,6 +75,12 @@
             <div class="ultra-item">
                 <label class="ultra-label">金额</label>
                 <div class="ultra-content"><input placeholder="金额" type="text" v-model="releasemoney" readonly>
+                </div>
+            </div>
+
+            <div class="ultra-item">
+                <label class="ultra-label">工程项目辅助</label>
+                <div class="ultra-content"><input placeholder="工程项目辅助" type="text" v-model="projectaux" readonly>
                 </div>
             </div>
 

@@ -83,6 +83,8 @@ function initPage() {
             account1: "",
             account2: "",
             releasemoney: "",
+            projectaux: "",
+            pk_projectaux: "",
             pk_informerrelease: "",
             password: summer.getStorage('password2'),
 
@@ -101,6 +103,8 @@ function initPage() {
             pk_inoutbusiclass: null,
             inoutbusiclasses: [],
 
+            // 汇款人
+            remitter: "",
             // 人员PK
             pk_psndoc: "",
             // 资金计划PK
@@ -121,7 +125,7 @@ function initPage() {
         },
         methods: {
             fillPage0: function () {
-                // alert(vue.content);
+                alert(vue.content);
                 var parsedData = JSON.parse(vue.content);
 
                 vue.pk_org = parsedData.pk_org;
@@ -134,11 +138,16 @@ function initPage() {
                 vue.ordername = parsedData.oppunitname;
                 vue.pk_ordercustomer = parsedData.pk_oppunitname;
 
+                // 汇款人
+                vue.remitter = parsedData.def4;
+
                 vue.infodate = parsedData.infodate;
                 vue.paymethod = parsedData.paymethod;
                 vue.account1 = parsedData.account1;
                 vue.account2 = parsedData.account2;
                 vue.releasemoney = parsedData.releasemoney;
+                vue.projectaux = parsedData.name;
+                vue.pk_projectaux = parsedData.pk_defdoc;
                 vue.pk_informerrelease = parsedData.pk_informerrelease;
 
                 vue.getCustomers();
@@ -282,6 +291,7 @@ function initPage() {
                             account1: vue.account1,
                             account2: vue.account2,
                             releasemoney: vue.releasemoney,
+                            pk_defdoc: vue.pk_projectaux,
                             pk_informerrelease: vue.pk_informerrelease,
                             password: vue.password,
 
@@ -291,6 +301,9 @@ function initPage() {
                             // 订单客户
                             // ordername: vue.ordername,
                             pk_ordercustomer: vue.pk_ordercustomer,
+
+                            //汇款人
+                            def4: vue.remitter,
 
                             // 收支项目
                             inoutbusiclass: searchText,
