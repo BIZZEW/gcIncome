@@ -83,8 +83,6 @@ function initPage() {
             account1: "",
             account2: "",
             releasemoney: "",
-            projectaux: "",
-            pk_projectaux: "",
             pk_informerrelease: "",
             password: summer.getStorage('password2'),
 
@@ -102,6 +100,12 @@ function initPage() {
             inoutbusiclass: null,
             pk_inoutbusiclass: null,
             inoutbusiclasses: [],
+
+            // 工程项目辅助
+            popupVisibleProjectaux: false,
+            projectaux: "",
+            pk_projectaux: "",
+            projectauxes: [],
 
             // 汇款人
             remitter: "",
@@ -141,17 +145,20 @@ function initPage() {
                 // 汇款人
                 vue.remitter = parsedData.def4;
 
+                // 工程项目辅助
+                vue.projectaux = parsedData.name;
+                vue.pk_projectaux = parsedData.pk_defdoc;
+
                 vue.infodate = parsedData.infodate;
                 vue.paymethod = parsedData.paymethod;
                 vue.account1 = parsedData.account1;
                 vue.account2 = parsedData.account2;
                 vue.releasemoney = parsedData.releasemoney;
-                vue.projectaux = parsedData.name;
-                vue.pk_projectaux = parsedData.pk_defdoc;
                 vue.pk_informerrelease = parsedData.pk_informerrelease;
 
                 vue.getCustomers();
                 vue.getInoutbusiclasses();
+                vue.getProjectaux();
             },
             // 返回
             goback: function () {
@@ -181,6 +188,12 @@ function initPage() {
                 this.pk_ordercustomer = this.$refs.customerPicker.getValues()[0].pk_ordercustomer;
                 this.popupVisibleCustomer = false;
             },
+            confirmChangeProjectaux: function () {
+                alert(JSON.stringify(this.$refs.projectauxPicker.getValues()[0]));
+                this.projectaux = this.$refs.projectauxPicker.getValues()[0].name;
+                this.pk_projectaux = this.$refs.projectauxPicker.getValues()[0].pk_defdoc;
+                this.popupVisibleProjectaux = false;
+            },
             confirmChangeInoutbusiclass: function () {
                 // alert(JSON.stringify(this.$refs.inoutbusiclassPicker.getValues()[0]));
                 this.inoutbusiclass = this.$refs.inoutbusiclassPicker.getValues()[0].name;
@@ -200,6 +213,37 @@ function initPage() {
                 this.cuserid = this.$refs.inoutbusiclassPicker.getValues()[0].cuserid;
 
                 this.popupVisibleInoutbusiclass = false;
+            },
+            getProjectaux: function () {
+                try {
+                    var param = {
+                        pk_oppunitname: vue.pk_oppunitname,
+                    }
+                    roads.oldSkoolAjax(vue.loginIP + "/service/refProjetAssis", param, "post", function (res) {
+                        var result = JSON.parse(res.data);
+                        switch (result.status) {
+                            case -1:
+                                // roads.alertAIO(vue.langFunk("noUsr"));
+                                vue.projectauxes = [];
+                                break;
+                            case 1:
+                                vue.projectauxes = [
+                                    {
+                                        values: eval(result.data)
+                                    }
+                                ];
+                                break;
+                            case 0:
+                                roads.alertAIO(0);
+                                vue.projectauxes = [];
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                } catch (e) {
+                    alert(e)
+                }
             },
             getInoutbusiclasses: function () {
                 try {
@@ -283,6 +327,9 @@ function initPage() {
                         var searchText = vue.inoutbusiclass;
                         searchText = encodeURI(searchText);
 
+                        var searchText2 = vue.remitter;
+                        searchText2 = encodeURI(searchText2);
+
                         var param = {
                             usercode: vue.usercode,
 
@@ -303,7 +350,7 @@ function initPage() {
                             pk_ordercustomer: vue.pk_ordercustomer,
 
                             //汇款人
-                            def4: vue.remitter,
+                            def4: searchText2,
 
                             // 收支项目
                             inoutbusiclass: searchText,
@@ -327,7 +374,7 @@ function initPage() {
                             // 到账通知PK
                             pk_informer: vue.pk_informer,
                         }
-                        // alert(JSON.stringify(param));
+                        alert(JSON.stringify(param));
                         roads.oldSkoolAjax(vue.loginIP + "/service/createreceiv", param, "post", function (res) {
                             // alert(JSON.stringify(res));
                             var result = JSON.parse(res.data);

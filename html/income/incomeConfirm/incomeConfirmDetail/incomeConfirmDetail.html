@@ -79,9 +79,9 @@
             </div>
 
             <div class="ultra-item">
-                <label class="ultra-label">工程项目辅助</label>
-                <div class="ultra-content"><input placeholder="工程项目辅助" type="text" v-model="projectaux" readonly>
-                </div>
+                <label class="ultra-label" style="color: cornflowerblue;">工程项目辅助</label>
+                <div class="ultra-content"><input placeholder="工程项目辅助" type="text" v-model="projectaux"
+                        @click="popupVisibleProjectaux = true" readonly></div>
             </div>
 
             <div class="ultra-item">
@@ -117,6 +117,14 @@
                 :visible-item-count="7" ref="inoutbusiclassPicker">
                 <span @click="popupVisibleInoutbusiclass= false" class="custom-toolbar-btn cancel-btn">取消</span>
                 <span @click="confirmChangeInoutbusiclass" class="custom-toolbar-btn confirm-btn">确认</span>
+            </mt-picker>
+        </mt-popup>
+
+        <mt-popup v-model="popupVisibleProjectaux" position="bottom">
+            <mt-picker :slots="projectauxes" :show-toolbar=true value-key="name" @change="onValuesChange"
+                :visible-item-count="7" ref="projectauxPicker">
+                <span @click="popupVisibleProjectaux= false" class="custom-toolbar-btn cancel-btn">取消</span>
+                <span @click="confirmChangeProjectaux" class="custom-toolbar-btn confirm-btn">确认</span>
             </mt-picker>
         </mt-popup>
     </div>
