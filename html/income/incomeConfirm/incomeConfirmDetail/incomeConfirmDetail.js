@@ -106,6 +106,7 @@ function initPage() {
             projectaux: "",
             pk_projectaux: "",
             projectauxes: [],
+            projectauxShow: false,
 
             // 汇款人
             remitter: "",
@@ -129,7 +130,6 @@ function initPage() {
         },
         methods: {
             fillPage0: function () {
-                alert(vue.content);
                 var parsedData = JSON.parse(vue.content);
 
                 vue.pk_org = parsedData.pk_org;
@@ -189,7 +189,7 @@ function initPage() {
                 this.popupVisibleCustomer = false;
             },
             confirmChangeProjectaux: function () {
-                alert(JSON.stringify(this.$refs.projectauxPicker.getValues()[0]));
+                // alert(JSON.stringify(this.$refs.projectauxPicker.getValues()[0]));
                 this.projectaux = this.$refs.projectauxPicker.getValues()[0].name;
                 this.pk_projectaux = this.$refs.projectauxPicker.getValues()[0].pk_defdoc;
                 this.popupVisibleProjectaux = false;
@@ -225,6 +225,7 @@ function initPage() {
                             case -1:
                                 // roads.alertAIO(vue.langFunk("noUsr"));
                                 vue.projectauxes = [];
+                                vue.projectauxShow = false;
                                 break;
                             case 1:
                                 vue.projectauxes = [
@@ -232,10 +233,12 @@ function initPage() {
                                         values: eval(result.data)
                                     }
                                 ];
+                                vue.projectauxShow = true;
                                 break;
                             case 0:
                                 roads.alertAIO(0);
                                 vue.projectauxes = [];
+                                vue.projectauxShow = false;
                                 break;
                             default:
                                 break;
@@ -338,7 +341,6 @@ function initPage() {
                             account1: vue.account1,
                             account2: vue.account2,
                             releasemoney: vue.releasemoney,
-                            pk_defdoc: vue.pk_projectaux,
                             pk_informerrelease: vue.pk_informerrelease,
                             password: vue.password,
 
@@ -374,7 +376,10 @@ function initPage() {
                             // 到账通知PK
                             pk_informer: vue.pk_informer,
                         }
-                        alert(JSON.stringify(param));
+
+                        if (vue.projectauxShow)
+                            param.pk_defdoc = vue.pk_projectaux
+
                         roads.oldSkoolAjax(vue.loginIP + "/service/createreceiv", param, "post", function (res) {
                             // alert(JSON.stringify(res));
                             var result = JSON.parse(res.data);

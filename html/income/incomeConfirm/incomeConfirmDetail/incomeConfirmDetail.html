@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="ultra-item">
+            <div class="ultra-item" v-if="projectauxShow">
                 <label class="ultra-label" style="color: cornflowerblue;">工程项目辅助</label>
                 <div class="ultra-content"><input placeholder="工程项目辅助" type="text" v-model="projectaux"
                         @click="popupVisibleProjectaux = true" readonly></div>
