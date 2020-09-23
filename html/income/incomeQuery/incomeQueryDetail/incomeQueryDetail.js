@@ -43,6 +43,9 @@ function initPage() {
             account1: "",
             account2: "",
             discountrate: "",
+
+            projectaux: "",
+            projectauxShow: false,
         },
         methods: {
             fillPage0: function () {
@@ -75,6 +78,11 @@ function initPage() {
                             vue.account1 = parsedData.account1;
                             vue.account2 = parsedData.account2;
                             vue.discountrate = parsedData.discountrate;
+
+                            if (parsedData.name && parsedData.name != "") {
+                                vue.projectaux = parsedData.name;
+                                vue.projectauxShow = true;
+                            }
                             break;
                         case 2:
                             roads.alertAIO(result.message);

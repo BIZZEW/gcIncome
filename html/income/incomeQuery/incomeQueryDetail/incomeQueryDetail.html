@@ -58,6 +58,11 @@
                 <label class="ultra-label">金额</label>
                 <div class="ultra-content"><input placeholder="金额" type="number" v-model="money" readonly></div>
             </div>
+            
+            <div class="ultra-item" v-if="projectauxShow">
+                <label class="ultra-label">工程项目辅助</label>
+                <div class="ultra-content"><input placeholder="工程项目辅助" type="text" v-model="projectaux" readonly></div>
+            </div>
 
             <div class="ultra-item">
                 <label class="ultra-label">收支项目</label>
